@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLogo } from "@zuck/ui";
 import { Link } from "preact-router/match";
 
 
-export default function NavBar () {
+export function NavBar () {
   return (
     <Nav>
       <NavItem>FridayPoetry.org</NavItem>

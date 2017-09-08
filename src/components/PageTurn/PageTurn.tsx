@@ -2,14 +2,14 @@ import { h } from "preact";
 import { classNames } from "@zuck/ui";
 
 
-interface PageTurnProps {
+interface Props {
   class?: string;
   direction?: string;
   onClick?: Function
 }
 
 
-export default function PageTurn(props: PageTurnProps) {
+export function PageTurn(props: Props) {
   return <img
     class={classNames("page-turn", props.direction)}
     src="/assets/arrow.svg" />;

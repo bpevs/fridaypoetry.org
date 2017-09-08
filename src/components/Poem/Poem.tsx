@@ -1,6 +1,6 @@
 import { h } from "preact";
 
 
-export default function Poem(props: any) {
+export function Poem(props: any) {
   return <div />;
 }

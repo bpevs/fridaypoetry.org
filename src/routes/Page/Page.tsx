@@ -1,19 +1,25 @@
 import { h, Component } from "preact";
 import { Button, Card, Cards, Col, Row, Nav, NavItem, NavLogo } from "@zuck/ui";
+import { PageTurn } from "../../components";
 
 
 interface Props {
   value?: string;
+  path?: string;
 }
 
 interface State {
 }
 
 
-export default class Page extends Component<Props, State> {
+export class Page extends Component<Props, State> {
   public render(props: Props, state: State) {
     return (
       <div>
+        <PageTurn />
+        <PageTurn direction="right" />
+        <PageTurn direction="up" />
+        <PageTurn direction="down" />
         <Row>
           <Cards style={{ maxWidth: "800px", margin: "auto" }}>
             <Col>
