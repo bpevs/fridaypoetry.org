@@ -6,7 +6,6 @@ export default function (config, env, helpers) {
   config = preactCliTypeScript(config);
 
   // Start by looking at index.tsx
-  config.resolve.alias["preact-cli-entrypoint"] = resolve(__dirname, "src", "index.tsx");
   config.resolve.alias["lodash"] = resolve(__dirname, "node_modules", "lodash-es")
 
   return config;
