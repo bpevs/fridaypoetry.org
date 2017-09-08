@@ -1,6 +1,3 @@
-import "./vendor/wing";
-import "./index.styl";
-
 import { h, Component } from "preact";
 import { Router } from "preact-router";
 import { bindAll } from "lodash";

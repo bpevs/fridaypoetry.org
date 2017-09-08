@@ -1,5 +1,4 @@
-import "./vendor/wing";
 import "./index.styl";
 
-import app from "./app.tsx";
+import app from "./index.tsx";
 export default app;
