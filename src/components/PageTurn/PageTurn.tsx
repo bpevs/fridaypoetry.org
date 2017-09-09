@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { classNames } from "@zuck/ui";
+import { classNames } from "@zuck/core";
 
 
 interface Props {

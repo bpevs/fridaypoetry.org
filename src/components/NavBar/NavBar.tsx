@@ -1,15 +1,16 @@
 import { h, Component } from "preact";
-import { Nav, NavItem, NavLogo } from "@zuck/ui";
+import { Nav, NavItem, NavLogo } from "@zuck/core";
 import { Link } from "preact-router/match";
 
 
 export function NavBar () {
   return (
     <Nav>
-      <NavItem>FridayPoetry.org</NavItem>
-      <NavItem><Link activeClassName="active" href="/">Home</Link></NavItem>
-      <NavItem><Link activeClassName="active" href="/profile">Me</Link></NavItem>
-      <NavItem><Link activeClassName="active" href="/profile/john">John</Link></NavItem>
+      <NavItem>
+        <Link activeClassName="active" href="/">
+          FridayPoetry.org
+        </Link>
+      </NavItem>
     </Nav>
   );
 }

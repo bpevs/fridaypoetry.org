@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-const style = require("./style");
+const style = require("./About");
 
 interface Props {
   path?: string;
@@ -12,7 +12,7 @@ interface State {
   count: number;
 }
 
-export class Profile extends Component<Props, State> {
+export class About extends Component<Props, State> {
   state: State = {
     time: Date.now(),
     count: 10

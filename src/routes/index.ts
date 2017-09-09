@@ -1,2 +1,2 @@
-export * from "./Page/Page";
-export * from "./Profile/Profile";
+export * from "./About/About";
+export * from "./Home/Home";

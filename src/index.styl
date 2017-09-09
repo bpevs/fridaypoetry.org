@@ -1,20 +1,19 @@
 @import "./vendor/wing"
 @import "./components"
+@import "./routes"
 
 html, body
+  background: #F5F5F5
   height: 100%
-  width: 100%
-  padding: 0
-  margin: 0
-  background: #FAFAFA
-  font-family: "Helvetica Neue", arial, sans-serif
-  font-weight: 400
-  color: #444
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
 *
   box-sizing: border-box
 
-#app
+.container
   height: 100%
+  width: 100%
+  min-width: 200px
+  max-width: 800px
+  min-height: 200px

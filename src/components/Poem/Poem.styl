@@ -1,0 +1,41 @@
+.poem
+  height: 100%
+  width: 100%
+  left: 0
+  top: 0
+  position: absolute
+  margin: auto
+  z-index: 1
+
+.content
+  position: absolute
+  font-size: 1.25em
+  top: 50%
+  left: 50%
+  padding: 0
+  transform: translateY(-50%) translateX(-50%)
+  max-height: 80%
+  white-space: pre
+
+.content p.text
+  line-height: 1.5
+  margin-bottom: 15px
+  white-space: pre
+
+.content p.text:first-letter
+  float: left
+  font-size: 2.75em
+  line-height: 1
+  margin: 2px 5px 0 0
+
+.content p.text:first-line
+  font-variant: small-caps
+  letter-spacing: 1px
+
+.content p.text:last-child
+  margin-bottom: 30px
+  padding-bottom: 30px
+
+.author
+  font-variant: small-caps
+  letter-spacing: 1px

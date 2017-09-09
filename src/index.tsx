@@ -12,7 +12,7 @@ import { bindAll } from "lodash";
 
 import { createStore } from "./store/store";
 import { NavBar } from "./components";
-import { Page, Profile } from "./routes";
+import { About, Home } from "./routes";
 
 
 const store = createStore();
@@ -31,12 +31,12 @@ export default class App extends Component<Props, State> {
 
   public render() {
     return (
-      <div id="app">
+      <div class="container">
         <NavBar />
         <Router onChange={this.handleRoute}>
-          <Page path="/" />
-          <Profile path="/profile/" user="me" />
-          <Profile path="/profile/:user" />
+          <Home path="/" />
+          <Home path="/poem/:poemId" />
+          <About path="/about/" />
         </Router>
       </div>
     );
