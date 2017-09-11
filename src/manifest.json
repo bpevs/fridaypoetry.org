@@ -1,6 +1,6 @@
 {
-  "name": "Preact PWA",
-  "short_name": "Preact PWA",
+  "name": "Friday Poetry",
+  "short_name": "Friday Poetry",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
