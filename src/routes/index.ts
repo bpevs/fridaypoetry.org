@@ -1,2 +1,4 @@
-export * from "./About/About";
-export * from "./Home/Home";
+import About from "./About/About";
+import Home from "./Home/Home";
+
+export { About, Home };

@@ -5,12 +5,13 @@ import { classNames } from "@zuck/core";
 interface Props {
   class?: string;
   direction?: string;
-  onClick?: Function
+  onClick?: any
 }
 
 
 export function PageTurn(props: Props) {
   return <img
+    onClick={props.onClick}
     class={classNames("page-turn", props.direction)}
     src="/assets/arrow.svg" />;
 }

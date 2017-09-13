@@ -9,6 +9,7 @@
     "module": "commonjs",
     "noImplicitAny": false,
     "target": "es5",
+    "lib": [ "ES5", "ES2015", "DOM", "ScripHost" ],
     "paths": {
       "lodash": ["node_modules/lodash-es"]
     }

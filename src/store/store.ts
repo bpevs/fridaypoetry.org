@@ -1,5 +1,6 @@
 import { applyMiddleware, compose, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
+import { callApiMiddleware } from "@zuck/core";
 
 import reducers from "./reducers/reducers";
 
@@ -18,7 +19,7 @@ function storeCreator(initialState = {}, options = defaultOptions) {
 
   const middleware = [
     thunkMiddleware,
-    // callApiMiddleware
+    callApiMiddleware
   ];
 
   store = createStore(

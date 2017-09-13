@@ -50,7 +50,7 @@ export function fetchPoems() {
       types.FETCH_POEMS_FAILURE
     ],
     callAPI() { return services.fetchPoems(); },
-    payload: { }
+    payload: {}
   };
 }
 

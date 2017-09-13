@@ -1,3 +1,5 @@
+const poems = require("./__mocks__/fixtures/poems.json");
+
 export function createPoem(poem: any) {
   return Promise.resolve();
 }
@@ -7,5 +9,5 @@ export function fetchPoem(poemId: string) {
 }
 
 export function fetchPoems() {
-  return Promise.resolve();
+  return Promise.resolve(poems);
 }

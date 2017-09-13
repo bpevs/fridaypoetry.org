@@ -12,7 +12,7 @@ interface State {
   count: number;
 }
 
-export class About extends Component<Props, State> {
+export default class About extends Component<Props, State> {
   state: State = {
     time: Date.now(),
     count: 10

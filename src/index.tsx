@@ -8,7 +8,8 @@ declare global {
 
 import { h, Component } from "preact";
 import { Router } from "preact-router";
-import { bindAll } from "lodash";
+import { bindAll, identity } from "lodash";
+import { Provider } from "preact-redux";
 
 import { createStore } from "./store/store";
 import { NavBar } from "./components";
@@ -31,14 +32,16 @@ export default class App extends Component<Props, State> {
 
   public render() {
     return (
-      <div class="container">
-        <NavBar />
-        <Router onChange={this.handleRoute}>
-          <Home path="/" />
-          <Home path="/poem/:poemId" />
-          <About path="/about/" />
-        </Router>
-      </div>
+      <Provider store={store}>
+        <div class="container" >
+          <NavBar />
+          <Router onChange={this.handleRoute}>
+            <Home path="/" />
+            <Home path="/poem/:poemId" />
+            <About path="/about/" />
+          </Router>
+        </div>
+      </Provider>
     );
   }
 
