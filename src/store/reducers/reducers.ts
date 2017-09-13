@@ -65,7 +65,7 @@ function updateEntry(state, action) {
 }
 
 function updateAllIds(state, action) {
-  const poemIds = map(action.payload.poems, poem => poem.id);
+  const poemIds = map(action.payload.poems, (poem: any) => poem.id);
   return union(state, poemIds).sort();
 }
 

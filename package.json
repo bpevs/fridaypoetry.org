@@ -5,7 +5,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build",
+    "build": "npm test && preact build",
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "test": "echo 'No testing yet'"
