@@ -5,8 +5,9 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "npm test && preact build",
+    "build": "preact build",
     "serve": "preact build && preact serve",
+    "deploy": "npm test && npm run build",
     "dev": "preact watch",
     "test": "echo 'No testing yet'"
   },
@@ -29,8 +30,8 @@
     "typescript": "^2.5.2"
   },
   "dependencies": {
-    "@zuck/core": "git+https://github.com/Blanket-Warriors/Zuck.git",
-    "@zuck/firebase": "git+https://github.com/Blanket-Warriors/Zuck-Firebase.git",
+    "@zuck/core": "git+https://github.com/Blanket-Warriors/Zuck.git#latest-build",
+    "@zuck/firebase": "git+https://github.com/Blanket-Warriors/Zuck-Firebase.git#latest-build",
     "lodash-es": "^4.17.4",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
