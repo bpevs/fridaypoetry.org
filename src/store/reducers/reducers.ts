@@ -2,42 +2,18 @@ import * as types from "../actions/actionTypes";
 import { assign, map, merge, union } from "lodash";
 import { combineReducers } from "redux";
 
-const defaultPages = {
-  current: 0,
-  pageIds: new Set()
-};
 
 const poemReducer = combineReducers({
   allIds: allPoemIds, byId: poemsById
 });
 
 export default combineReducers({
-  poems: poemReducer,
-  page: pageReducer
+  poems: poemReducer
 });
 
 
 // Reducers
 //––––––––––
-function pageReducer(state = defaultPages, action) {
-  switch (action.type) {
-    case types.FETCH_POEMS_SUCCESS:
-    case types.FETCH_POEM_SUCCESS:
-      const pageIds = new Set(state.pageIds);
-      action.payload.poems.forEach(poem => pageIds.add(poem.id));
-      return assign({}, state, { pageIds });
-
-    case types.TURN_PAGE:
-      const pageThatStopsAtZero = Math.max(0, state.current + action.direction);
-      const pageThatStopsAtZeroAndMax = Math.min(state.pageIds.size, pageThatStopsAtZero);
-      return assign({}, state, { current: pageThatStopsAtZeroAndMax });
-
-    default:
-      return state;
-  }
-}
-
-
 function allPoemIds(state = [], action) {
   switch (action.type) {
     case types.FETCH_POEMS_SUCCESS:

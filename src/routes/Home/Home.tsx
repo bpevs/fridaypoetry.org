@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { connect } from "preact-redux";
+import { route } from "preact-router";
 import { bindAll } from "lodash";
 import { PageTurn, Poem } from "../../components";
 import * as actions from "../../store/actions/actions";
@@ -10,20 +11,25 @@ interface Props {
   path?: string;
   dispatch: Function;
   state: any;
+  poemId: string;
 }
 
-interface State {
-}
 
-export class RawHome extends Component<Props, State> {
+export class RawHome extends Component<Props, any> {
   constructor(props, state) {
     super(props, state);
     props.dispatch(actions.fetchPoems());
     bindAll(this, [ "onLeft", "onRight" ]);
   }
 
-  public render (props: Props, state: State) {
-    const poem = props.state.poems.byId[props.state.page.current];
+  componentWillMount() {
+    if (!this.props.poemId) {
+      route("/poem/0");
+    }
+  }
+
+  public render (props, state) {
+    const poem = props.state.poems.byId[props.poemId];
 
     return (
       <div class="home">
@@ -35,10 +41,15 @@ export class RawHome extends Component<Props, State> {
   }
 
   protected onLeft() {
-    this.props.dispatch(actions.turnPage(-1));
+    const poemId = parseInt(this.props.poemId);
+    const nextId = poemId ? poemId - 1 : 0;
+    route(`/poem/${nextId}`);
   }
   protected onRight() {
-    this.props.dispatch(actions.turnPage(1));
+    const nextPoemId = parseInt(this.props.poemId) + 1;
+    const nextPoem = this.props.state.poems.byId[nextPoemId];
+    const shouldGoNext = typeof nextPoemId == "number" && nextPoem != null;
+    route(`/poem/${shouldGoNext ? nextPoemId : 0}`);
   }
 }
 

@@ -53,8 +53,3 @@ export function fetchPoems() {
     payload: {}
   };
 }
-
-export function turnPage(direction: number) {
-  const type = types.TURN_PAGE;
-  return { type, direction };
-}

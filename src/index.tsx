@@ -38,7 +38,7 @@ export default class App extends Component<Props, State> {
           <Router onChange={this.handleRoute}>
             <Home path="/" />
             <Home path="/poem/:poemId" />
-            <About path="/about/" />
+            <About path="/about" />
           </Router>
         </div>
       </Provider>
