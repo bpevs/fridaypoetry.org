@@ -4,18 +4,26 @@
     "baseUrl": ".",
     "jsx": "react",
     "jsxFactory": "h",
+    "outDir": "./dist/",
+    "module": "commonjs",
+    "noImplicitAny": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "module": "commonjs",
-    "noImplicitAny": false,
     "target": "es5",
-    "lib": [ "ES5", "ES2015", "DOM", "ScripHost" ],
+    "skipLibCheck": true,
+    "lib": [ "es5", "es2015", "dom", "scripthost" ],
     "paths": {
-      "lodash": ["node_modules/lodash-es"]
+      "lodash": ["node_modules/lodash-es"],
+      "preact": ["node_modules/preact/dist/preact"],
+      "@zuck/core": ["node_modules/@zuck/core/dist/index"]
     }
   },
   "include": [
-    "./source/"
+    "./source/**/*"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
   "files": [
     "./node_modules/preact/dist/preact"

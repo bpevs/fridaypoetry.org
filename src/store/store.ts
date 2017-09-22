@@ -1,18 +1,24 @@
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+  }
+}
+
+import { callApiMiddleware } from "@zuck/core";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { callApiMiddleware } from "@zuck/core";
 
 import reducers from "./reducers/reducers";
 
 
-var store: any = null;
+let store: any = null;
 
-var defaultOptions = {
+const defaultOptions = {
   history: null
 };
 
 function storeCreator(initialState = {}, options = defaultOptions) {
-  var composeEnhancers = compose;
+  let composeEnhancers = compose;
   if (typeof document !== "undefined" && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
   }

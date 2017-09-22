@@ -1,9 +1,9 @@
-import { h, Component } from "preact";
 import { Nav, NavItem, NavLogo } from "@zuck/core";
+import { Component, h } from "preact";
 import { Link } from "preact-router/match";
 
 
-export function NavBar () {
+export function NavBar() {
   return (
     <Nav>
       <NavItem>

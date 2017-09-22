@@ -1,29 +1,25 @@
 declare global {
   interface Window {
     __FRIDAY_POETRY__: any;
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
   }
 }
 
 
-import { h, Component } from "preact";
-import { Router } from "preact-router";
 import { bindAll, identity } from "lodash";
-import { Provider } from "preact-redux";
+import { Component, h } from "preact";
+import { Router } from "preact-router";
 
-import { createStore } from "./store/store";
 import { NavBar } from "./components";
 import { About, Home } from "./routes";
+import { createStore } from "./store/store";
+const { Provider } = require("preact-redux");
 
 
 const store = createStore();
 
 
-interface Props {}
-interface State {}
-
-export default class App extends Component<Props, State> {
-  currentUrl: string;
+export default class App extends Component<{}, {}> {
+  private currentUrl: string;
 
   constructor() {
     super();
@@ -45,7 +41,7 @@ export default class App extends Component<Props, State> {
     );
   }
 
-  private handleRoute({ url }) {
-    this.currentUrl = url;
-  };
+  private handleRoute(args: { url: string }) {
+    this.currentUrl = args.url;
+  }
 }

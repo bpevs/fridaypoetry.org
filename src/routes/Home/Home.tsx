@@ -1,34 +1,34 @@
-import { h, Component } from "preact";
-import { connect } from "preact-redux";
-import { route } from "preact-router";
 import { bindAll } from "lodash";
+import { Component, h } from "preact";
+import { route } from "preact-router";
 import { PageTurn, Poem } from "../../components";
 import * as actions from "../../store/actions/actions";
+const { connect } = require("preact-redux");
 
 
 interface Props {
   value?: string;
   path?: string;
-  dispatch: Function;
+  dispatch: (...args: any[]) => any;
   state: any;
   poemId: string;
 }
 
 
 export class RawHome extends Component<Props, any> {
-  constructor(props, state) {
+  constructor(props: Props, state: any) {
     super(props, state);
     props.dispatch(actions.fetchPoems());
     bindAll(this, [ "onLeft", "onRight" ]);
   }
 
-  componentWillMount() {
+  public componentWillMount() {
     if (!this.props.poemId) {
       route("/poem/0");
     }
   }
 
-  public render (props, state) {
+  public render(props: Props, state: any) {
     const poem = props.state.poems.byId[props.poemId];
 
     return (
@@ -41,20 +41,20 @@ export class RawHome extends Component<Props, any> {
   }
 
   protected onLeft() {
-    const poemId = parseInt(this.props.poemId);
+    const poemId = parseInt(this.props.poemId, 10);
     const nextId = poemId ? poemId - 1 : 0;
     route(`/poem/${nextId}`);
   }
   protected onRight() {
-    const nextPoemId = parseInt(this.props.poemId) + 1;
+    const nextPoemId = parseInt(this.props.poemId, 10) + 1;
     const nextPoem = this.props.state.poems.byId[nextPoemId];
-    const shouldGoNext = typeof nextPoemId == "number" && nextPoem != null;
+    const shouldGoNext = typeof nextPoemId === "number" && nextPoem != null;
     route(`/poem/${shouldGoNext ? nextPoemId : 0}`);
   }
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return { state };
 }
 

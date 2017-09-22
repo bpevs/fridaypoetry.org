@@ -2,54 +2,54 @@ import * as services from "../services/services";
 import * as types from "./actionTypes";
 
 interface Poem {
-  author: string,
-  text: string,
-  id: string
+  author: string;
+  text: string;
+  id: string;
 }
 
 export function createPoem(poem: Poem) {
   return {
+    callAPI() { return services.createPoem(poem); },
+    payload: { poem },
     types: [
       types.CREATE_POEM_REQUEST,
       types.CREATE_POEM_SUCCESS,
       types.CREATE_POEM_FAILURE
-    ],
-    callAPI() { return services.createPoem(poem); },
-    payload: { poem }
+    ]
   };
 }
 
 export function fetchPoem(poemId: string) {
   return {
+    callAPI() { return services.fetchPoem(poemId); },
+    payload: { poemId },
     types: [
       types.FETCH_POEM_REQUEST,
       types.FETCH_POEM_SUCCESS,
       types.FETCH_POEM_FAILURE
-    ],
-    callAPI() { return services.fetchPoem(poemId); },
-    payload: { poemId }
+    ]
   };
 }
 
 export function fetchPoemSuccess(poem: Poem) {
   const type = types.FETCH_POEM_SUCCESS;
   return {
-    type: type,
     payload: {
-      poem: poem,
+      poem,
       poemId: poem.id
-    }
+    },
+    type
   };
 }
 
 export function fetchPoems() {
   return {
+    callAPI() { return services.fetchPoems(); },
+    payload: {},
     types: [
       types.FETCH_POEMS_REQUEST,
       types.FETCH_POEMS_SUCCESS,
       types.FETCH_POEMS_FAILURE
-    ],
-    callAPI() { return services.fetchPoems(); },
-    payload: {}
+    ]
   };
 }

@@ -1,11 +1,11 @@
-import { h } from "preact";
 import { classNames } from "@zuck/core";
+import { h } from "preact";
 
 
 interface Props {
   class?: string;
   direction?: string;
-  onClick?: any
+  onClick?: any;
 }
 
 
