@@ -2,7 +2,7 @@ import { bindAll } from "lodash";
 import { Component, h } from "preact";
 import { route } from "preact-router";
 import { PageTurn, Poem } from "../../components";
-import * as actions from "../../store/actions/actions";
+import * as actionCreators from "../../store/actions/actionCreators";
 const { connect } = require("preact-redux");
 
 
@@ -18,7 +18,7 @@ interface Props {
 export class RawHome extends Component<Props, any> {
   constructor(props: Props, state: any) {
     super(props, state);
-    props.dispatch(actions.fetchPoems());
+    props.dispatch(actionCreators.fetchPoems());
     bindAll(this, [ "onLeft", "onRight" ]);
   }
 

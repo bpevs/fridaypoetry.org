@@ -1,17 +1,8 @@
+import { Action, ByIdState } from "@zuck/core";
 import { assign, map, merge, union } from "lodash";
 import { combineReducers } from "redux";
 import * as types from "../actions/actionTypes";
 
-
-interface Action {
-  type?: string;
-  types?: string[];
-  [ key: string ]: any;
-}
-
-interface ByIdState {
-  [ key: string ]: any;
-}
 
 const poemReducer = combineReducers({
   allIds: allPoemIds, byId: poemsById

@@ -1,9 +1,0 @@
-export declare const CREATE_POEM_FAILURE = "CREATE_POEM_FAILURE";
-export declare const CREATE_POEM_REQUEST = "CREATE_POEM_REQUEST";
-export declare const CREATE_POEM_SUCCESS = "CREATE_POEM_SUCCESS";
-export declare const FETCH_POEM_FAILURE = "FETCH_POEM_FAILURE";
-export declare const FETCH_POEM_REQUEST = "FETCH_POEM_REQUEST";
-export declare const FETCH_POEM_SUCCESS = "FETCH_POEM_SUCCESS";
-export declare const FETCH_POEMS_FAILURE = "FETCH_POEMS_FAILURE";
-export declare const FETCH_POEMS_REQUEST = "FETCH_POEMS_REQUEST";
-export declare const FETCH_POEMS_SUCCESS = "FETCH_POEMS_SUCCESS";
