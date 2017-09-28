@@ -16,7 +16,7 @@
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "build": "preact build",
     "serve": "preact build && preact serve",
-    "deploy": "npm test && npm run build && cp ./build/index.html ./build/404.html",
+    "deploy": "npm test && npm run build",
     "dev": "preact watch",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "tslint --project ./tslint.json",
