@@ -10,30 +10,30 @@ import { Component, h } from "preact";
 import { Router } from "preact-router";
 
 import { NavBar } from "./components";
-import { About, Home } from "./routes";
+import { About, Home, Settings } from "./routes";
 import { createStore } from "./store/store";
 const { Provider } = require("preact-redux");
 
 
 const store = createStore();
 
-
 export default class App extends Component<{}, {}> {
-  private currentUrl: string;
+  public state: any;
 
   constructor() {
     super();
     bindAll(this, "handleRoute");
   }
 
-  public render() {
+  public render(props: any) {
     return (
       <Provider store={store}>
         <div class="container" >
-          <NavBar />
+          <NavBar path={this.state.currentUrl} />
           <Router onChange={this.handleRoute}>
             <Home path="/" />
             <Home path="/poem/:poemId" />
+            <Settings path="/settings" />
             <About path="/about" />
           </Router>
         </div>
@@ -42,6 +42,6 @@ export default class App extends Component<{}, {}> {
   }
 
   private handleRoute(args: { url: string }) {
-    this.currentUrl = args.url;
+    this.setState({ currentUrl: args.url });
   }
 }
