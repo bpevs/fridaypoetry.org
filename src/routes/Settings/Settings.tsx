@@ -1,4 +1,4 @@
-import { Button } from "@zuck/core";
+import { Button, Row } from "@zuck/core";
 import { Component, h } from "preact";
 require("./Settings");
 
@@ -16,7 +16,8 @@ export default class Settings extends Component<Props, State> {
       <div class="info-page">
         <h1>Settings</h1>
         <form class="settings">
-          <Button outline>Remind me on Fridays</Button>
+          <Row><Button outline>Remind me on Fridays</Button></Row>
+          <Row><Button outline>Dark Mode</Button></Row>
         </form>
       </div>
     );

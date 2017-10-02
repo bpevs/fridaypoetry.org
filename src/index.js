@@ -1,4 +1,6 @@
-import "./index.styl";
+import "./vendor/wing";
+import "@zuck/core/dist/index.css";
+import "./main.styl";
 
-import app from "./index.tsx";
-export default app;
+import main from "./main";
+export default main;
