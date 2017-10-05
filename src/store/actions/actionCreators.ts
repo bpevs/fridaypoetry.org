@@ -19,7 +19,7 @@ export function createPoem(poem: Poem) {
   };
 }
 
-export function fetchPoem(poemId: string) {
+export function fetchPoem(poemId: number) {
   return {
     callAPI() { return services.fetchPoem(poemId); },
     payload: { poemId },
@@ -42,9 +42,9 @@ export function fetchPoemSuccess(poem: Poem) {
   };
 }
 
-export function fetchPoems() {
+export function fetchPoems(startId?: number) {
   return {
-    callAPI() { return services.fetchPoems(); },
+    callAPI() { return services.fetchPoems(startId); },
     payload: {},
     types: [
       types.FETCH_POEMS_REQUEST,

@@ -18,13 +18,23 @@ interface Props {
 export class RawHome extends Component<Props, any> {
   constructor(props: Props, state: any) {
     super(props, state);
-    props.dispatch(actionCreators.fetchPoems());
     bindAll(this, [ "onLeft", "onRight" ]);
   }
 
   public componentWillMount() {
-    if (!this.props.poemId) {
+    if (this.props.poemId == null) {
       route("/poem/0");
+    }
+  }
+  
+  public componentWillReceiveProps(nextProps: any) {
+    if (nextProps.poemId == null) {
+      route("/poem/0");
+    }
+    const poemId = parseInt(this.props.poemId);
+    const poems = this.props.state.poems.byId;
+    if (!poems[poemId]) {
+      this.props.dispatch(actionCreators.fetchPoems(poemId));
     }
   }
 
