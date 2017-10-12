@@ -2,6 +2,11 @@ export const CREATE_POEM_FAILURE = Symbol("CREATE_POEM_FAILURE");
 export const CREATE_POEM_REQUEST = Symbol("CREATE_POEM_REQUEST");
 export const CREATE_POEM_SUCCESS = Symbol("CREATE_POEM_SUCCESS");
 
+export const FETCH_IDS_FAILURE = Symbol("FETCH_IDS_FAILURE");
+export const FETCH_IDS_REQUEST = Symbol("FETCH_IDS_REQUEST");
+export const FETCH_IDS_SUCCESS = Symbol("FETCH_IDS_SUCCESS");
+
+
 export const FETCH_POEM_FAILURE = Symbol("FETCH_POEM_FAILURE");
 export const FETCH_POEM_REQUEST = Symbol("FETCH_POEM_REQUEST");
 export const FETCH_POEM_SUCCESS = Symbol("FETCH_POEM_SUCCESS");

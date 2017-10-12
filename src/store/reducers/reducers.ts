@@ -1,5 +1,5 @@
 import { Action, ByIdState } from "@zuck/core";
-import { assign, map, merge, union } from "lodash";
+import { assign, filter, map, merge, union } from "lodash";
 import { combineReducers } from "redux";
 import * as types from "../actions/actionTypes";
 
@@ -17,6 +17,9 @@ export default combineReducers({
 // ––––––––––
 function allPoemIds(state: string[] = [], action: Action) {
   switch (action.type) {
+    case types.FETCH_IDS_SUCCESS:
+      return updateAllIds(state, action);
+
     case types.FETCH_POEMS_SUCCESS:
       return updateAllIds(state, action);
 
@@ -57,8 +60,8 @@ function updateEntry(state: ByIdState, action: Action) {
 }
 
 function updateAllIds(state: string[], action: Action) {
-  const poemIds = map(action.payload.poems, (poem: any) => poem.id);
-  return union(state, poemIds).sort();
+  const { ids } = action.payload;
+  return union(state, ids).sort().reverse();
 }
 
 function updateId(state: string[], action: Action) {

@@ -1,4 +1,4 @@
-import { bindAll } from "lodash";
+import { find, toString } from "lodash";
 import { Component, h } from "preact";
 import { route } from "preact-router";
 import { PageTurn, Poem } from "../../components";
@@ -18,48 +18,51 @@ interface Props {
 export class RawHome extends Component<Props, any> {
   constructor(props: Props, state: any) {
     super(props, state);
-    bindAll(this, [ "onLeft", "onRight" ]);
+    props.dispatch(actionCreators.fetchPoemIds())
+      .then(() => {
+        const poemId = this.props.poemId;
+        if (poemId && poemId.length) {
+          return this.props.dispatch(actionCreators.fetchPoem(poemId));
+        }
+
+        const firstPoemId = this.props.state.poems.allIds[0];
+        this.props.dispatch(actionCreators.fetchPoem(firstPoemId))
+          .then(() => route(`/poem/${firstPoemId}`));
+      });
   }
 
-  public componentWillMount() {
-    if (this.props.poemId == null) {
-      route("/poem/0");
-    }
-  }
-  
   public componentWillReceiveProps(nextProps: any) {
-    if (nextProps.poemId == null) {
-      route("/poem/0");
-    }
-    const poemId = parseInt(this.props.poemId);
-    const poems = this.props.state.poems.byId;
-    if (!poems[poemId]) {
-      this.props.dispatch(actionCreators.fetchPoems(poemId));
+    if (nextProps.poemId === this.props.poemId) { return; }
+
+    const poemId = nextProps.poemId;
+    if (poemId && poemId.length) {
+      if (!nextProps.state.poems.byId[poemId]) {
+        this.props.dispatch(actionCreators.fetchPoem(poemId));
+      }
     }
   }
 
   public render(props: Props, state: any) {
+    const poemIds = props.state.poems.allIds;
+
+    const currIndex = poemIds.indexOf(props.poemId);
+    const prevIndex = Math.max(currIndex - 1, 0);
+    const nextIndex = Math.min(currIndex + 1, poemIds.length - 1);
+
     const poem = props.state.poems.byId[props.poemId];
 
     return (
       <div class="home">
-        <PageTurn class="left" direction="left" onClick={this.onLeft} />
-        <PageTurn class="right" direction="right" onClick={this.onRight} />
+        <PageTurn class="left" direction="left" onClick={this.turn.bind(this, prevIndex)} />
+        <PageTurn class="right" direction="right" onClick={this.turn.bind(this, nextIndex)} />
         <Poem poem={poem} />
       </div>
     );
   }
 
-  protected onLeft() {
-    const poemId = parseInt(this.props.poemId, 10);
-    const nextId = poemId ? poemId - 1 : 0;
-    route(`/poem/${nextId}`);
-  }
-  protected onRight() {
-    const nextPoemId = parseInt(this.props.poemId, 10) + 1;
-    const nextPoem = this.props.state.poems.byId[nextPoemId];
-    const shouldGoNext = typeof nextPoemId === "number" && nextPoem != null;
-    route(`/poem/${shouldGoNext ? nextPoemId : 0}`);
+  protected turn(index: number) {
+    const id = this.props.state.poems.allIds[index];
+    route(`/poem/${id}`);
   }
 }
 
