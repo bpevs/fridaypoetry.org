@@ -31,6 +31,7 @@ export class RawHome extends Component<Props, any> {
       });
   }
 
+
   public componentWillReceiveProps(nextProps: any) {
     if (nextProps.poemId === this.props.poemId) { return; }
 
@@ -60,7 +61,9 @@ export class RawHome extends Component<Props, any> {
     );
   }
 
-  protected turn(index: number) {
+
+  // PRIVATE
+  private turn(index: number) {
     const id = this.props.state.poems.allIds[index];
     route(`/poem/${id}`);
   }
