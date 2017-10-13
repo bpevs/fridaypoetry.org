@@ -25,6 +25,7 @@
   "dependencies": {
     "@zuck/core": "Blanket-Warriors/Zuck#latest-build",
     "@zuck/firebase": "Blanket-Warriors/Zuck-Firebase#latest-build",
+    "axios": "^0.16.2",
     "lodash-es": "^4.17.4",
     "preact": "^8.2.5",
     "preact-async-route": "^2.0.0",
