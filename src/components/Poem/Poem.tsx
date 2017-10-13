@@ -5,9 +5,7 @@ import { inHTMLData } from "xss-filters";
 export function Poem(props: any) {
   if (!props.poem) {
     return (
-      <div class="no-content">
-        No poem here!  What a sad day!
-      </div>
+      <div class="no-content"></div>
     );
    }
 
