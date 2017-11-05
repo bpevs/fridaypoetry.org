@@ -1,8 +1,22 @@
 import { Button } from "@zuck/core";
 import { assign, bindAll, clone } from "lodash";
 import { Component, h } from "preact";
+import { connect, DispatchProp } from "preact-redux";
 
-import { TextArea } from "../TextArea/TextArea";
+import { TextArea } from "../../components/TextArea/TextArea";
+import * as actionCreators from "../../store/actions/actionCreators";
+
+
+type Func = (...args: any[]) => any;
+interface Props {
+  path?: string;
+  onSubmit: () => void;
+  state: any;
+}
+
+interface Actions {
+  actions: { [key: string]: Func };
+}
 
 
 const content = {
@@ -12,7 +26,7 @@ const content = {
 };
 
 
-export class Typewriter extends Component<any, any> {
+export class RawTypewriter extends Component<Props & Actions, any> {
   public state: any;
 
   constructor(props: any) {
@@ -22,9 +36,9 @@ export class Typewriter extends Component<any, any> {
   }
 
 
-  public render() {
+  public render(props: any) {
     const { author, text, title } = this.state.content;
-
+    console.log(props.actions);
     return (
       <div className="typewriter__wrapper">
         <input    name="author" value={author} onChange={this.edit} />
@@ -53,3 +67,9 @@ export class Typewriter extends Component<any, any> {
     this.setState({ content: nextContent });
   }
 }
+
+
+export default connect(
+  (state: any) => ({ state }),
+  { actions: actionCreators }
+)(RawTypewriter as any);
