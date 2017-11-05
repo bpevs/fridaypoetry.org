@@ -13,16 +13,19 @@
     "no-bitwise": true,
     "no-conditional-assignment": true,
     "no-consecutive-blank-lines": false,
-    "no-console": {
-      "options": [
-        "debug",
-        "info",
-        "log",
-        "time",
-        "timeEnd",
-        "trace"
-      ]
-    },
+    "no-console": [
+      "warning",
+      {
+        "allow": [
+          "debug",
+          "info",
+          "log",
+          "time",
+          "timeEnd",
+          "trace"
+        ]
+      }
+    ],
     "no-var-requires": false,
     "trailing-comma": false
   }
