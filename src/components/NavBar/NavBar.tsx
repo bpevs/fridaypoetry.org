@@ -10,7 +10,7 @@ interface Props {
 
 
 export function NavBar(props: Props) {
-  const others = [
+  const settingsRoutes = [
     <Link activeClassName="active" href="/settings">settings</Link>,
     <Link activeClassName="active" href="/about">about</Link>
   ];
@@ -27,7 +27,7 @@ export function NavBar(props: Props) {
           href={ isInfoPage ? "/" : "/settings" }>
           { isInfoPage ? "back" : "FridayPoetry.org" }
         </Link>
-        { isInfoPage ? others : "" }
+        { /* isInfoPage ? settingsRoutes : "" */ }
       </NavItem>
     </Nav>
   );

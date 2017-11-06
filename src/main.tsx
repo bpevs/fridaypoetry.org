@@ -24,7 +24,7 @@ export default class App extends Component<any, any> {
           <Router onChange={this.handleRoute.bind(this)}>
             <Home path="/" />
             <Home path="/poem/:poemId" />
-            <Settings path="/settings" />
+            <About path="/settings" />
             <About path="/about" />
             <Typewriter path="/typewriter" />
           </Router>

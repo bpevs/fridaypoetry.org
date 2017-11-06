@@ -24,7 +24,7 @@ export default class Settings extends Component<Props, any> {
             <Button
               outline
               onClick={this.darkMode}
-              >Dark Mode" </Button>
+              >Dark Mode</Button>
           </Row>
         </form>
       </main>
