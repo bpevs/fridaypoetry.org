@@ -11,8 +11,8 @@ interface Props {
 
 export function NavBar(props: Props) {
   const others = [
-    <Link activeClassName="active" class="minor-nav-item" href="/settings">settings</Link>,
-    <Link activeClassName="active" class="minor-nav-item" href="/about">about</Link>
+    <Link activeClassName="active" href="/settings">settings</Link>,
+    <Link activeClassName="active" href="/about">about</Link>
   ];
 
   const isInfoPage =
@@ -24,7 +24,6 @@ export function NavBar(props: Props) {
       <NavItem>
         <Link
           activeClassName="active"
-          class="main-nav-item"
           href={ isInfoPage ? "/" : "/settings" }>
           { isInfoPage ? "back" : "FridayPoetry.org" }
         </Link>
