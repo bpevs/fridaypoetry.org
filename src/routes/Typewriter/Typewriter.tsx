@@ -2,6 +2,7 @@ import { Button, Col, Row } from "@zuck/core";
 import { assign, bindAll, clone, identity } from "lodash";
 import { Component, h } from "preact";
 import { connect } from "preact-redux";
+import { route } from "preact-router";
 import { TextArea } from "../../components/TextArea/TextArea";
 import * as actionCreators from "../../store/actions/actionCreators";
 
@@ -34,12 +35,12 @@ export class RawTypewriter extends Component<Props, any> {
         <form onSubmit={this.submit}>
           <Row>
             <Col>
-              <label>Author</label>
-              <input name="author" value={author} onChange={this.edit} type="text" />
-            </Col>
-            <Col>
               <label>Title</label>
               <input name="title" value={title} onChange={this.edit} type="text" />
+            </Col>
+            <Col>
+              <label>Author</label>
+              <input name="author" value={author} onChange={this.edit} type="text" />
             </Col>
           </Row>
           <div>
@@ -59,7 +60,7 @@ export class RawTypewriter extends Component<Props, any> {
     this.props.createPoem(this.state.content)
       .then(({ payload, type }: any) => {
           if (type === "CREATE_POEM_SUCCESS") {
-            this.setState({ content: clone(defaultContent) });
+            route(`/poem/${payload.poemId}`);
           }
       });
   }

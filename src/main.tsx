@@ -16,11 +16,6 @@ import { createStore } from "./store/store";
 const store = createStore();
 
 export default class App extends Component<any, any> {
-  constructor() {
-    super();
-    this.state = { currentUrl: null };
-  }
-
   public render(props: any, state: any) {
     return (
       <Provider store={store}>
@@ -38,7 +33,7 @@ export default class App extends Component<any, any> {
     );
   }
 
-  private handleRoute({ currentUrl }: any) {
-    this.setState({ currentUrl });
+  private handleRoute({ url }: any) {
+    this.setState({ currentUrl: url });
   }
 }

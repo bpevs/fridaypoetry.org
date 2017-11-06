@@ -14,10 +14,27 @@ export default class Settings extends Component<Props, any> {
       <main class="info-page">
         <h1>Settings</h1>
         <form class="settings">
-          <Row><Button outline>Remind me on Fridays</Button></Row>
-          <Row><Button outline>Dark Mode</Button></Row>
+          <Row>
+            <Button
+              outline
+              onClick={this.remindMe}
+              >Remind me on Fridays</Button>
+          </Row>
+          <Row>
+            <Button
+              outline
+              onClick={this.darkMode}
+              >Dark Mode" </Button>
+          </Row>
         </form>
       </main>
     );
+  }
+
+  private remindMe(event: Event) {
+    event.preventDefault();
+  }
+  private darkMode(event: Event) {
+    event.preventDefault();
   }
 }

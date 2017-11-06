@@ -7,13 +7,20 @@ export function Poem(props: any) {
     return (
       <div class="no-content"></div>
     );
-   }
+  }
+
+  const { author, text } = props.poem;
+  const authorComponent = (
+    <p class="author">
+      - {inHTMLData(author)}
+    </p>
+  );
 
   return (
     <div class="poem">
       <div class="content">
-        <p class="text">{inHTMLData(props.poem.text)}</p>
-        <p class="author">- {inHTMLData(props.poem.author)}</p>
+        <p class="text">{inHTMLData(text)}</p>
+        {author != null ? authorComponent : "" }
       </div>
     </div>
    );

@@ -7,7 +7,8 @@ import { Poem } from "../../types";
 export function createPoem(poem: any) {
   const date = Date.now();
   const poemData = pick(poem, [ "author", "text", "title" ]);
-  return axios.post(baseUrl, poemData);
+  return axios.post(`${baseUrl}.json`, poemData)
+    .then((response: AxiosResponse) => ({ poemId: response.data.name }));
 }
 
 export function fetchPoemIds() {
