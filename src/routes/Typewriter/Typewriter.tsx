@@ -30,12 +30,12 @@ export class RawTypewriter extends Component<Props, any> {
     const { author, text, title } = state.content;
 
     return (
-      <div className="typewriter__wrapper">
+      <main className="typewriter__wrapper">
         <input    name="author" value={author} onChange={this.edit} />
         <input    name="title"  value={title}  onChange={this.edit} />
         <TextArea name="text"   value={text}   onChange={this.edit} />
         <Button className="typewriter__submit" onClick={this.submit}>Submit</Button>
-      </div>
+      </main>
     );
   }
 

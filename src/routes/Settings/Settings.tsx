@@ -11,13 +11,13 @@ interface Props {
 export default class Settings extends Component<Props, any> {
   public render(props: Props) {
     return (
-      <div class="info-page">
+      <main class="info-page">
         <h1>Settings</h1>
         <form class="settings">
           <Row><Button outline>Remind me on Fridays</Button></Row>
           <Row><Button outline>Dark Mode</Button></Row>
         </form>
-      </div>
+      </main>
     );
   }
 }

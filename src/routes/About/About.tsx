@@ -9,7 +9,7 @@ interface Props {
 
 export default function About(props: Props) {
   return (
-    <div class="info-page">
+    <main class="info-page">
       <h1 class="title">About</h1>
       <div class="origin-story">
         <p>
@@ -21,6 +21,6 @@ export default function About(props: Props) {
         </p>
         <p>This is that website.</p>
       </div>
-    </div>
+    </main>
   );
 }
