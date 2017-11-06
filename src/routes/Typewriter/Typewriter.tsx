@@ -1,5 +1,5 @@
-import { Button } from "@zuck/core";
-import { assign, bindAll, clone } from "lodash";
+import { Button, Col, Row } from "@zuck/core";
+import { assign, bindAll, clone, identity } from "lodash";
 import { Component, h } from "preact";
 import { connect } from "preact-redux";
 import { TextArea } from "../../components/TextArea/TextArea";
@@ -31,20 +31,37 @@ export class RawTypewriter extends Component<Props, any> {
 
     return (
       <main className="typewriter__wrapper">
-        <input    name="author" value={author} onChange={this.edit} />
-        <input    name="title"  value={title}  onChange={this.edit} />
-        <TextArea name="text"   value={text}   onChange={this.edit} />
-        <Button className="typewriter__submit" onClick={this.submit}>Submit</Button>
+        <form onSubmit={this.submit}>
+          <Row>
+            <Col>
+              <label>Author</label>
+              <input name="author" value={author} onChange={this.edit} type="text" />
+            </Col>
+            <Col>
+              <label>Title</label>
+              <input name="title" value={title} onChange={this.edit} type="text" />
+            </Col>
+          </Row>
+          <div>
+            <label>Poem</label>
+            <TextArea name="text" value={text} onChange={this.edit} type="text" />
+          </div>
+          <Button className="typewriter__submit">Submit</Button>
+        </form>
       </main>
     );
   }
 
 
   // PRIVATE
-  private submit() {
+  private submit(event: Event) {
+    event.preventDefault();
     this.props.createPoem(this.state.content)
-      .then(() => this.setState({ content: clone(defaultContent) }))
-      .then(this.props.onSubmit);
+      .then(({ payload, type }: any) => {
+          if (type === "CREATE_POEM_SUCCESS") {
+            this.setState({ content: clone(defaultContent) });
+          }
+      });
   }
 
   private edit(event: any) {

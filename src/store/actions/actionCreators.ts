@@ -45,14 +45,3 @@ export function fetchPoemIds() {
     ]
   };
 }
-
-export function fetchPoems(poemId?: string) {
-  return {
-    callAPI() { return services.fetchPoems(poemId); },
-    types: [
-      types.FETCH_POEMS_REQUEST,
-      types.FETCH_POEMS_SUCCESS,
-      types.FETCH_POEMS_FAILURE
-    ]
-  };
-}

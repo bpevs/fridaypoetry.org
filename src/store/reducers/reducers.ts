@@ -20,9 +20,6 @@ function allPoemIds(state: string[] = [], action: Action) {
     case types.FETCH_IDS_SUCCESS:
       return updateAllIds(state, action);
 
-    case types.FETCH_POEMS_SUCCESS:
-      return updateAllIds(state, action);
-
     case types.FETCH_POEM_SUCCESS:
       return updateId(state, action);
 
@@ -33,9 +30,6 @@ function allPoemIds(state: string[] = [], action: Action) {
 
 function poemsById(state: ByIdState = {}, action: Action) {
   switch (action.type) {
-    case types.FETCH_POEMS_SUCCESS:
-      return updateAllEntries(state, action);
-
     case types.FETCH_POEM_SUCCESS:
       return updateEntry(state, action);
 

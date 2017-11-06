@@ -9,7 +9,7 @@ import { Component, h } from "preact";
 import { Provider } from "preact-redux";
 import { Router } from "preact-router";
 import { NavBar } from "./components";
-import { About, Home, Settings } from "./routes";
+import { About, Home, Settings, Typewriter } from "./routes";
 import { createStore } from "./store/store";
 
 
@@ -31,6 +31,7 @@ export default class App extends Component<any, any> {
             <Home path="/poem/:poemId" />
             <Settings path="/settings" />
             <About path="/about" />
+            <Typewriter path="/typewriter" />
           </Router>
         </div>
       </Provider>

@@ -22,7 +22,3 @@ export function fetchPoem(poemId: string) {
   return axios.get(`${baseUrl}/${poemId}.json`)
     .then((response: AxiosResponse) => ({ poem: response.data }));
 }
-
-export function fetchPoems(poemId?: string) {
-  return Promise.resolve();
-}
