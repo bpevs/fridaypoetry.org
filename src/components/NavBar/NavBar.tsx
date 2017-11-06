@@ -15,19 +15,35 @@ export function NavBar(props: Props) {
     <Link activeClassName="active" href="/about">about</Link>
   ];
 
-  const isInfoPage =
-    props.path === "/settings" ||
-    props.path === "/about";
+  const today = new Date();
+
+  const isFriday = today.getDay() === 6;
+  const isHome =
+    props.path !== "/typewriter" &&
+    props.path !== "/settings" &&
+    props.path !== "/about";
+
+
+  const homeHref = isHome ? "" : "/";
+
+  const fridayMessage = (
+    <Link
+      activeClassName="active"
+      class="friday-message"
+      href="/typewriter">
+      It's Friday! Write a poem!
+    </Link>
+  );
 
   return (
     <Nav>
       <NavItem>
         <Link
           activeClassName="active"
-          href={ isInfoPage ? "/" : "/settings" }>
-          { isInfoPage ? "back" : "FridayPoetry.org" }
+          href={ (isHome && isFriday) ? "/typewriter" : homeHref }>
+          { isHome ? "FridayPoetry.org" : "back" }
         </Link>
-        { /* isInfoPage ? settingsRoutes : "" */ }
+        { isHome && isFriday ? fridayMessage : "" }
       </NavItem>
     </Nav>
   );

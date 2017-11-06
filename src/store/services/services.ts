@@ -5,7 +5,11 @@ import { Poem } from "../../types";
 
 
 export function createPoem(poem: any) {
-  const date = Date.now();
+  const date = new Date();
+  const isNotFriday = date.getDay() !== 6;
+
+  if (isNotFriday) { return; }
+
   const poemData = pick(poem, [ "author", "text", "title" ]);
   return axios.post(`${baseUrl}.json`, poemData)
     .then((response: AxiosResponse) => ({ poemId: response.data.name }));
