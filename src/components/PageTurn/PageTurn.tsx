@@ -11,7 +11,8 @@ interface Props {
 
 export function PageTurn(props: Props) {
   return <img
+    alt={props.direction}
     onClick={props.onClick}
-    class={classNames("page-turn", props.direction)}
+    class={classNames("page-turn", props.class, props.direction)}
     src="/assets/arrow.svg" />;
 }

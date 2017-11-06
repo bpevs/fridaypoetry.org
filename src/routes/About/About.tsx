@@ -1,9 +1,11 @@
 import { Component, h } from "preact";
 require("./About");
 
+
 interface Props {
   path?: string;
 }
+
 
 export default function About(props: Props) {
   return (

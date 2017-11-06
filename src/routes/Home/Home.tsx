@@ -1,79 +1,102 @@
 import { find, toString } from "lodash";
 import { Component, h } from "preact";
+import { connect } from "preact-redux";
 import { route } from "preact-router";
 import { PageTurn, Poem } from "../../components";
 import * as actionCreators from "../../store/actions/actionCreators";
-const { connect } = require("preact-redux");
 
 
 interface Props {
-  value?: string;
+  fetchPoem: (...args: any[]) => any;
+  fetchPoemIds: (...args: any[]) => any;
   path?: string;
-  dispatch: (...args: any[]) => any;
-  state: any;
   poemId: string;
+  poems: any;
+  poemIds: string[];
+  value?: string;
 }
 
 
 export class RawHome extends Component<Props, any> {
-  constructor(props: Props, state: any) {
-    super(props, state);
-    props.dispatch(actionCreators.fetchPoemIds())
-      .then(() => {
-        const poemId = this.props.poemId;
-        if (poemId && poemId.length) {
-          return this.props.dispatch(actionCreators.fetchPoem(poemId));
-        }
+  public componentWillMount() {
+    const { fetchPoem, fetchPoemIds, poemId, poemIds } = this.props;
 
-        const firstPoemId = this.props.state.poems.allIds[0];
-        this.props.dispatch(actionCreators.fetchPoem(firstPoemId))
-          .then(() => route(`/poem/${firstPoemId}`));
-      });
+    fetchPoemIds().then(() => {
+      if (!poemId || !poemId.length) {
+        route(`/poem/${this.props.poemIds[0]}`);
+      } else {
+        fetchPoem(poemId);
+      }
+    });
   }
 
+  public componentDidMount() {
+    window.addEventListener("keyup", this.keypress.bind(this));
+  }
 
   public componentWillReceiveProps(nextProps: any) {
-    if (nextProps.poemId === this.props.poemId) { return; }
-
-    const poemId = nextProps.poemId;
-    if (poemId && poemId.length) {
-      if (!nextProps.state.poems.byId[poemId]) {
-        this.props.dispatch(actionCreators.fetchPoem(poemId));
-      }
+    const { fetchPoem, poemId, poems } = nextProps;
+    const hasPoemId = poemId && poemId.length;
+    const isPrevPoem = poemId === this.props.poemId;
+    if (hasPoemId && !isPrevPoem && !poems[poemId]) {
+      fetchPoem(poemId);
     }
   }
 
-  public render(props: Props, state: any) {
-    const poemIds = props.state.poems.allIds;
+  public componentWillUnmount() {
+    window.removeEventListener("keyup", this.keypress.bind(this));
+  }
 
-    const currIndex = poemIds.indexOf(props.poemId);
-    const prevIndex = Math.max(currIndex - 1, 0);
-    const nextIndex = Math.min(currIndex + 1, poemIds.length - 1);
-
-    const poem = props.state.poems.byId[props.poemId];
+  public render(props: Props) {
+    const { poems, poemId, poemIds } = props;
 
     return (
       <div class="home">
-        <PageTurn class="left" direction="left" onClick={this.turn.bind(this, prevIndex)} />
-        <PageTurn class="right" direction="right" onClick={this.turn.bind(this, nextIndex)} />
-        <Poem poem={poem} />
+        <PageTurn direction="left" onClick={this.turn.bind(this, "left")} />
+        <PageTurn direction="right" onClick={this.turn.bind(this, "right")} />
+        <Poem poem={poems[poemId]} />
       </div>
     );
   }
 
 
   // PRIVATE
-  private turn(index: number) {
-    const id = this.props.state.poems.allIds[index];
-    route(`/poem/${id}`);
+  private keypress(e: KeyboardEvent) {
+    this.turn(e.key);
+  }
+
+  private turn(direction: string) {
+    const { poemId, poemIds } = this.props;
+    const currIndex = poemIds.indexOf(poemId);
+
+    let nextIndex;
+
+    switch (direction) {
+      case "right":
+      case "ArrowRight":
+        nextIndex = Math.min(currIndex + 1, poemIds.length - 1);
+        break;
+      case "left":
+      case "ArrowLeft":
+        nextIndex = Math.max(currIndex - 1, 0);
+        break;
+      default:
+        return;
+    }
+
+    if (nextIndex !== currIndex) {
+      route(`/poem/${poemIds[nextIndex]}`);
+    }
   }
 }
 
-
-function mapStateToProps(state: any) {
-  return { state };
-}
-
 export default connect(
-  mapStateToProps
+  (state: any) => ({
+    poemIds: state.poems.allIds,
+    poems: state.poems.byId
+  }),
+  {
+    fetchPoem: actionCreators.fetchPoem,
+    fetchPoemIds: actionCreators.fetchPoemIds
+  }
 )(RawHome);

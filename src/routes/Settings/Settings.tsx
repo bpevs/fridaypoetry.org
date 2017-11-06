@@ -2,16 +2,14 @@ import { Button, Row } from "@zuck/core";
 import { Component, h } from "preact";
 require("./Settings");
 
+
 interface Props {
   path?: string;
 }
 
-interface State {
-  timer?: any;
-}
 
-export default class Settings extends Component<Props, State> {
-  public render(props: Props, state: State) {
+export default class Settings extends Component<Props, any> {
+  public render(props: Props) {
     return (
       <div class="info-page">
         <h1>Settings</h1>

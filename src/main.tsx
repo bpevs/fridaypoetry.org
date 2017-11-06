@@ -5,32 +5,28 @@ declare global {
 }
 
 
-import { bindAll, identity } from "lodash";
 import { Component, h } from "preact";
+import { Provider } from "preact-redux";
 import { Router } from "preact-router";
-
 import { NavBar } from "./components";
 import { About, Home, Settings } from "./routes";
 import { createStore } from "./store/store";
-const { Provider } = require("preact-redux");
 
 
 const store = createStore();
 
-export default class App extends Component<{}, {}> {
-  public state: any;
-
+export default class App extends Component<any, any> {
   constructor() {
     super();
-    bindAll(this, "handleRoute");
+    this.state = { currentUrl: null };
   }
 
-  public render(props: any) {
+  public render(props: any, state: any) {
     return (
       <Provider store={store}>
         <div class="container" >
-          <NavBar path={this.state.currentUrl} />
-          <Router onChange={this.handleRoute}>
+          <NavBar path={state.currentUrl} />
+          <Router onChange={this.handleRoute.bind(this)}>
             <Home path="/" />
             <Home path="/poem/:poemId" />
             <Settings path="/settings" />
@@ -41,7 +37,7 @@ export default class App extends Component<{}, {}> {
     );
   }
 
-  private handleRoute(args: { url: string }) {
-    this.setState({ currentUrl: args.url });
+  private handleRoute({ currentUrl }: any) {
+    this.setState({ currentUrl });
   }
 }

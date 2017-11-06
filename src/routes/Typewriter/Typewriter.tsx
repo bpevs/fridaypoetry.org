@@ -1,50 +1,40 @@
 import { Button } from "@zuck/core";
 import { assign, bindAll, clone } from "lodash";
 import { Component, h } from "preact";
-import { connect, DispatchProp } from "preact-redux";
-
+import { connect } from "preact-redux";
 import { TextArea } from "../../components/TextArea/TextArea";
 import * as actionCreators from "../../store/actions/actionCreators";
 
 
-type Func = (...args: any[]) => any;
 interface Props {
-  path?: string;
+  createPoem: (...args: any[]) => any;
   onSubmit: () => void;
-  state: any;
+  path?: string;
 }
 
-interface Actions {
-  actions: { [key: string]: Func };
-}
-
-
-const content = {
+const defaultContent = {
   author: null,
   text: "",
   title: null
 };
 
 
-export class RawTypewriter extends Component<Props & Actions, any> {
-  public state: any;
-
+export class RawTypewriter extends Component<Props, any> {
   constructor(props: any) {
     super(props);
-    this.state = { content: clone(content) };
+    this.state = { content: clone(defaultContent) };
     bindAll(this, [ "submit", "edit" ]);
   }
 
+  public render(props: any, state: any) {
+    const { author, text, title } = state.content;
 
-  public render(props: any) {
-    const { author, text, title } = this.state.content;
-    console.log(props.actions);
     return (
       <div className="typewriter__wrapper">
         <input    name="author" value={author} onChange={this.edit} />
         <input    name="title"  value={title}  onChange={this.edit} />
         <TextArea name="text"   value={text}   onChange={this.edit} />
-        <Button className="typewriter__submit">Submit</Button>
+        <Button className="typewriter__submit" onClick={this.submit}>Submit</Button>
       </div>
     );
   }
@@ -52,11 +42,9 @@ export class RawTypewriter extends Component<Props & Actions, any> {
 
   // PRIVATE
   private submit() {
-    const { actions, onSubmit } = this.props;
-
-    actions.createContent(this.state.content)
-      .then(() => this.setState({ content: clone(content) }))
-      .then(onSubmit);
+    this.props.createPoem(this.state.content)
+      .then(() => this.setState({ content: clone(defaultContent) }))
+      .then(this.props.onSubmit);
   }
 
   private edit(event: any) {
@@ -70,6 +58,6 @@ export class RawTypewriter extends Component<Props & Actions, any> {
 
 
 export default connect(
-  (state: any) => ({ state }),
-  { actions: actionCreators }
+  null,
+  { createPoem: actionCreators.createPoem }
 )(RawTypewriter as any);
