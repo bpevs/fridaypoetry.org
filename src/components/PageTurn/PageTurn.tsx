@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export function PageTurn(props: Props) {
+export default function PageTurn(props: Props) {
   return <img
     alt={props.direction}
     onClick={props.onClick}

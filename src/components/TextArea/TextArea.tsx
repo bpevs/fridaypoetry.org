@@ -2,7 +2,7 @@ import { bindAll } from "lodash";
 import { Component, h } from "preact";
 
 
-export class TextArea extends Component<any, any> {
+export default class TextArea extends Component<any, any> {
   public state: any;
 
   constructor(props: any) {

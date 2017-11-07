@@ -2,7 +2,7 @@ import { h } from "preact";
 import { inHTMLData } from "xss-filters";
 
 
-export function Poem(props: any) {
+export default function Poem(props: any) {
   if (!props.poem) {
     return (
       <div class="no-content"></div>

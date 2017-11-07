@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export function NavBar(props: Props) {
+export default function NavBar(props: Props) {
   const settingsRoutes = [
     <Link activeClassName="active" href="/settings">settings</Link>,
     <Link activeClassName="active" href="/about">about</Link>

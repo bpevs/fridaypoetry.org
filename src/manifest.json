@@ -2,10 +2,12 @@
   "name": "Friday Poetry",
   "short_name": "FridayPoetry",
   "start_url": "/",
+  "description": "A site for writing poetry. On Friday.",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
-  "theme_color": "#673ab8",
+  "theme_color": "#008ae1",
+  "version": "1.0.0",
   "icons": [{
     "src": "/assets/icons/android-chrome-192x192.png",
     "type": "image/png",

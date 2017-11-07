@@ -9,9 +9,8 @@ import { Component, h } from "preact";
 import { Provider } from "preact-redux";
 import { Router } from "preact-router";
 import { NavBar } from "./components";
-import { About, Home, Settings, Typewriter } from "./routes";
+import { About, Home, Typewriter } from "./routes";
 import { createStore } from "./store/store";
-
 
 const store = createStore();
 
@@ -24,7 +23,6 @@ export default class App extends Component<any, any> {
           <Router onChange={this.handleRoute.bind(this)}>
             <Home path="/" />
             <Home path="/poem/:poemId" />
-            <About path="/settings" />
             <About path="/about" />
             <Typewriter path="/typewriter" />
           </Router>

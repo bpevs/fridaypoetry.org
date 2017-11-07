@@ -3,8 +3,8 @@ import { assign, bindAll, clone, identity } from "lodash";
 import { Component, h } from "preact";
 import { connect } from "preact-redux";
 import { route } from "preact-router";
-import { Poem } from "../../components/Poem/Poem";
-import { TextArea } from "../../components/TextArea/TextArea";
+import Poem from "../../components/Poem/Poem";
+import TextArea from "../../components/TextArea/TextArea";
 import * as actionCreators from "../../store/actions/actionCreators";
 
 
