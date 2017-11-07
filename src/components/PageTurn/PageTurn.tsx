@@ -14,5 +14,5 @@ export default function PageTurn(props: Props) {
     alt={props.direction}
     onClick={props.onClick}
     class={classNames("page-turn", props.class, props.direction)}
-    src="/assets/arrow.svg" />;
+    src="/assets/images/arrow.svg" />;
 }

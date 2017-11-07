@@ -24,7 +24,7 @@ export default function NavBar(props: Props) {
     props.path !== "/about";
 
 
-  const homeHref = isHome ? "" : "/";
+  const homeHref = isHome ? "/about" : "/";
 
   const fridayMessage = (
     <Link
