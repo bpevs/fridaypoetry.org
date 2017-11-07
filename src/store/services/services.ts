@@ -8,7 +8,10 @@ export function createPoem(poem: any) {
   const date = new Date();
   const isNotFriday = date.getDay() !== 6;
 
-  if (isNotFriday) { return; }
+  if (isNotFriday) {
+    alert("Oops! We can't submit this poem! It's not Friday!");
+    return Promise.reject("It's not Friday!");
+  }
 
   const poemData = pick(poem, [ "author", "text", "title" ]);
   return axios.post(`${baseUrl}.json`, poemData)

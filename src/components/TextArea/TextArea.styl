@@ -1,11 +1,22 @@
 .text-area
-  &__content
-    width: 40%;
-    min-height: 3em;
-    border: 1px solid #CCC;
-    border-radius: 3px;
+  &__wrapper
+    height: 100%
+    padding-bottom: 2em
+
+  &__content,
+  &__content[type=text]
+    height: 100%
+    border: 1px solid #CCC
+    border-radius: 3px
+    line-height: 1.5
+    font-size: 1.3rem
+    white-space: pre
+
+    &:first-line
+      font-variant: small-caps
+      letter-spacing: 1px
 
     &:focus
-      border: 1px solid #000;
-      box-shadow: none;
-      outline: none;
+      border: 1px solid #000
+      box-shadow: none
+      outline: none

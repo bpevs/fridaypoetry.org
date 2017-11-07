@@ -3,6 +3,7 @@ import { assign, bindAll, clone, identity } from "lodash";
 import { Component, h } from "preact";
 import { connect } from "preact-redux";
 import { route } from "preact-router";
+import { Poem } from "../../components/Poem/Poem";
 import { TextArea } from "../../components/TextArea/TextArea";
 import * as actionCreators from "../../store/actions/actionCreators";
 
@@ -31,22 +32,28 @@ export class RawTypewriter extends Component<Props, any> {
     const { author, text, title } = state.content;
 
     return (
-      <main className="typewriter__wrapper">
+      <main className="typewriter typewriter__wrapper">
         <form onSubmit={this.submit}>
           <Row>
             <Col>
               <label>Title</label>
-              <input name="title" value={title} onChange={this.edit} type="text" />
+              <input name="title" value={title} onInput={this.edit} type="text" />
             </Col>
             <Col>
               <label>Author</label>
-              <input name="author" value={author} onChange={this.edit} type="text" />
+              <input name="author" value={author} onInput={this.edit} type="text" />
             </Col>
           </Row>
-          <div>
-            <label>Poem</label>
-            <TextArea name="text" value={text} onChange={this.edit} type="text" />
-          </div>
+          <Row>
+            <Col>
+              <label>Poem</label>
+              <TextArea name="text" value={text} onInput={this.edit} type="text" />
+            </Col>
+            <Col>
+              <label>Preview</label>
+              <Poem poem={{ author, text }} />
+            </Col>
+          </Row>
           <Button className="typewriter__submit">Submit</Button>
         </form>
       </main>
@@ -57,6 +64,14 @@ export class RawTypewriter extends Component<Props, any> {
   // PRIVATE
   private submit(event: Event) {
     event.preventDefault();
+
+    const shouldSubmit = confirm(`
+      Ready to submit your poem?\n
+      This is your last chance make edits.
+    `);
+
+    if (!shouldSubmit) { return; }
+
     this.props.createPoem(this.state.content)
       .then(({ payload, type }: any) => {
           if (type === "CREATE_POEM_SUCCESS") {
