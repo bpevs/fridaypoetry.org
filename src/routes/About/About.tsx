@@ -1,6 +1,5 @@
-import { Component, h } from "preact";
-import { Link } from "preact-router";
 import { Col, Row } from "@zuck/core";
+import { Component, h } from "preact";
 require("./About");
 
 
