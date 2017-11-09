@@ -54,6 +54,8 @@ export class RawHome extends Component<Props, any> {
       <main class="home">
         <PageTurn direction="left" onClick={this.turn.bind(this, "left")} />
         <PageTurn direction="right" onClick={this.turn.bind(this, "right")} />
+        <div class="left-half" onClick={this.turn.bind(this, "left")} />
+        <div class="right-half" onClick={this.turn.bind(this, "right")} />
         <Poem poem={poems[poemId]} />
       </main>
     );
