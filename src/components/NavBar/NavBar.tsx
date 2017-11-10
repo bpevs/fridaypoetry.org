@@ -17,7 +17,7 @@ export default function NavBar(props: Props) {
 
   const today = new Date();
 
-  const isFriday = today.getDay() === 6;
+  const isFriday = today.getDay() === 5;
   const isHome =
     props.path !== "/typewriter" &&
     props.path !== "/settings" &&

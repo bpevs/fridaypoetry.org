@@ -6,7 +6,7 @@ import { Poem } from "../../types";
 
 export function createPoem(poem: any) {
   const date = new Date();
-  const isNotFriday = date.getDay() !== 6;
+  const isNotFriday = date.getDay() !== 5;
 
   if (isNotFriday) {
     alert("Oops! We can't submit this poem! It's not Friday!");
