@@ -20,7 +20,7 @@
     "dev": "preact watch",
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "tslint --project ./tslint.json",
-    "test:unit": "echo 'No unit testing yet'"
+    "test:unit": "jest --config ./jestconfig.json"
   },
   "dependencies": {
     "@zuck/core": "Blanket-Warriors/Zuck#latest-build",
