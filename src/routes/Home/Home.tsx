@@ -1,4 +1,4 @@
-import { find, toString } from "lodash";
+import { bindAll, find, toString } from "lodash";
 import { Component, h } from "preact";
 import { connect } from "preact-redux";
 import { route } from "preact-router";
@@ -28,10 +28,12 @@ export class RawHome extends Component<Props, any> {
         fetchPoem(poemId);
       }
     });
+
+    bindAll(this, [ "keypress" ]);
   }
 
   public componentDidMount() {
-    window.addEventListener("keyup", this.keypress.bind(this));
+    window.addEventListener("keyup", this.keypress);
   }
 
   public componentWillReceiveProps(nextProps: any) {
@@ -44,7 +46,7 @@ export class RawHome extends Component<Props, any> {
   }
 
   public componentWillUnmount() {
-    window.removeEventListener("keyup", this.keypress.bind(this));
+    window.removeEventListener("keyup", this.keypress);
   }
 
   public render(props: Props) {
