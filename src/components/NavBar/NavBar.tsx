@@ -1,6 +1,7 @@
 import { Nav, NavItem, NavLogo } from "@zuck/core";
 import { Component, h } from "preact";
 import { Link } from "preact-router/match";
+import { IS_FRIDAY } from "../../constants";
 require("./NavBar");
 
 
@@ -17,7 +18,6 @@ export default function NavBar(props: Props) {
 
   const today = new Date();
 
-  const isFriday = today.getDay() === 5;
   const isHome =
     props.path !== "/typewriter" &&
     props.path !== "/settings" &&
@@ -40,10 +40,10 @@ export default function NavBar(props: Props) {
       <NavItem>
         <Link
           activeClassName="active"
-          href={ (isHome && isFriday) ? "/typewriter" : homeHref }>
+          href={ (isHome && IS_FRIDAY) ? "/typewriter" : homeHref }>
           { isHome ? "FridayPoetry.org" : "back" }
         </Link>
-        { isHome && isFriday ? fridayMessage : "" }
+        { isHome && IS_FRIDAY ? fridayMessage : "" }
       </NavItem>
     </Nav>
   );
