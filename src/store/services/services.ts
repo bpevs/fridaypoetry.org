@@ -1,13 +1,19 @@
 import axios, { AxiosResponse } from "axios";
 import { assign, identity, map, pick, toArray } from "lodash";
-import { BASE_URL, IS_FRIDAY } from "../../constants";
+import { BASE_URL } from "../../constants";
 import { Poem } from "../../types";
 
 
 export function createPoem(poem: any) {
+  const IS_FRIDAY = (new Date()).getDay() === 5;
+
   if (!IS_FRIDAY) {
     alert("Oops! We can't submit this poem! It's not Friday!");
     return Promise.reject("It's not Friday!");
+  }
+
+  if (!poem.text || (typeof poem.text !== "string")) {
+    return Promise.reject("No Poem text!");
   }
 
   const poemData = pick(poem, [ "author", "text", "title" ]);
