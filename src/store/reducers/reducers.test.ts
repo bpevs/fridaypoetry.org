@@ -9,6 +9,9 @@ const defaultState = {
   }
 };
 
+test("Should have default state", () => {
+  expect(reducer(undefined, { type: undefined })).toMatchSnapshot();
+});
 
 describe("FETCH_IDS_SUCCESS", function() {
   beforeEach(() => {

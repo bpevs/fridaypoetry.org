@@ -41,11 +41,6 @@ function poemsById(state: ByIdState = {}, action: Action) {
 
 // Updaters
 // –––––––––––––––––––––––––––––––––––––––––
-function updateAllEntries(state: ByIdState, action: Action) {
-  const { poems } = action.payload;
-  return merge({}, state, poems);
-}
-
 function updateEntry(state: ByIdState, action: Action) {
   const { poemId, poem } = action.payload;
   return assign({}, state, {

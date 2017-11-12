@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Should have default state 1`] = `
+Object {
+  "poems": Object {
+    "allIds": Array [],
+    "byId": Object {},
+  },
+}
+`;
+
 exports[`FETCH_IDS_SUCCESS Should update initial ids 1`] = `
 Object {
   "poems": Object {
