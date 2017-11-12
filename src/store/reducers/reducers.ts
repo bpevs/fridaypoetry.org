@@ -59,5 +59,5 @@ function updateAllIds(state: string[], action: Action) {
 }
 
 function updateId(state: string[], action: Action) {
-  return union(state, [ action.payload.poemId ]);
+  return union(state, [ action.payload.poemId ]).sort().reverse();
 }

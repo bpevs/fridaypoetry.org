@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FETCH_IDS_SUCCESS Should update initial ids 1`] = `
+Object {
+  "poems": Object {
+    "allIds": Array [
+      "3-id",
+      "2-id",
+      "1-id",
+    ],
+    "byId": Object {},
+  },
+}
+`;
+
+exports[`FETCH_IDS_SUCCESS Should update subsequent ids 1`] = `
+Object {
+  "poems": Object {
+    "allIds": Array [
+      "5-id",
+      "4-id",
+      "3-id",
+      "2-id",
+      "1-id",
+    ],
+    "byId": Object {},
+  },
+}
+`;
+
+exports[`FETCH_POEM_SUCCESS FETCH_POEM_SUCCESS should update initial poem 1`] = `
+Object {
+  "poems": Object {
+    "allIds": Array [
+      "6-id",
+      "4-id",
+      "3-id",
+      "1-id",
+    ],
+    "byId": Object {
+      "6-id": Object {
+        "author": "poem-6-author",
+        "text": "poem-6-text",
+        "title": "poem-6-title",
+      },
+    },
+  },
+}
+`;
+
+exports[`FETCH_POEM_SUCCESS FETCH_POEM_SUCCESS should update subsequent poem 1`] = `
+Object {
+  "poems": Object {
+    "allIds": Array [
+      "4-id",
+      "3-id",
+      "2-id",
+      "1-id",
+    ],
+    "byId": Object {
+      "2-id": Object {
+        "author": "poem-author",
+        "text": "poem-text",
+        "title": "poem-title",
+      },
+      "3-id": Object {
+        "author": "poem-3-author",
+        "text": "poem-3-text",
+        "title": "poem-3-title",
+      },
+    },
+  },
+}
+`;

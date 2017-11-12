@@ -34,7 +34,6 @@
     "preact-router": "^2.5.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "simplemde": "^1.11.2",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {

@@ -1,5 +1,9 @@
 {
-  "collectCoverageFrom": [ "src/**/*.{ts,tsx}" ],
+  "collectCoverageFrom": [
+    "src/components/**/*.{ts,tsx}",
+    "src/routes/**/*.{ts,tsx}",
+    "src/store/**/*.{ts,tsx}"
+  ],
   "moduleFileExtensions": [ "ts", "tsx", "js" ],
   "transform": {
     "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
