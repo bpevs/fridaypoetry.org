@@ -4,9 +4,12 @@
     "src/routes/**/*.{ts,tsx}",
     "src/store/**/*.{ts,tsx}"
   ],
-  "moduleFileExtensions": [ "ts", "tsx", "js" ],
+  "moduleFileExtensions": [ "ts", "tsx", "js", "jsx" ],
   "transform": {
-    "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
   },
+  "transformIgnorePatterns": [
+    "<rootDir>/node_modules/(?!@zuck)"
+  ],
   "testMatch": ["**/*.test.(ts|tsx|js)"]
 }

@@ -1,7 +1,7 @@
 jest.mock("axios");
-jest.mock("../../constants", () => ({ BASE_URL: "BASE_URL" }));
 
 import axios from "axios";
+import { BASE_URL } from "../../constants";
 import { createPoem, fetchPoem, fetchPoemIds } from "./services";
 
 
@@ -26,7 +26,7 @@ describe("createPoem", function() {
         expect(typeof poemId).toEqual("string");
         expect(axios.post.mock.calls.length).toEqual(1);
         const [ url, poemData ] = axios.post.mock.calls[0];
-        expect(url).toEqual("BASE_URL.json");
+        expect(url).toEqual(`${BASE_URL}.json`);
         expect(poemData).toMatchSnapshot();
       });
   });
@@ -40,7 +40,7 @@ describe("createPoem", function() {
         expect(typeof poemId).toEqual("string");
         expect(axios.post.mock.calls.length).toEqual(1);
         const [ url, poemData ] = axios.post.mock.calls[0];
-        expect(url).toEqual("BASE_URL.json");
+        expect(url).toEqual(`${BASE_URL}.json`);
         expect(poemData).toMatchSnapshot();
       });
   });
@@ -72,7 +72,7 @@ describe("fetchPoemIds", () => {
       .then(({ ids }) => {
         expect(axios.get.mock.calls.length).toEqual(1);
         const [ url ] = axios.get.mock.calls[0];
-        expect(url).toEqual("BASE_URL.json?shallow=true");
+        expect(url).toEqual(`${BASE_URL}.json?shallow=true`);
         expect(Array.isArray(ids)).toEqual(true);
       });
   });
@@ -80,12 +80,12 @@ describe("fetchPoemIds", () => {
 
 describe("fetchPoem", () => {
   test("Should fetch poem", () => {
-    const poemId = "myPoemId";
+    const poemId = "success-poem";
     return fetchPoem(poemId)
       .then(poem => {
         expect(axios.get.mock.calls.length).toEqual(1);
         const [ url ] = axios.get.mock.calls[0];
-        expect(url).toEqual(`BASE_URL/${poemId}.json`);
+        expect(url).toEqual(`${BASE_URL}/${poemId}.json`);
       });
   });
 });
