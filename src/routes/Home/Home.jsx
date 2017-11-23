@@ -1,25 +1,14 @@
-import { bindAll, find, toString } from "lodash";
-import { Component, h } from "preact";
-import { connect } from "preact-redux";
-import { route } from "preact-router";
+import { route } from "@zuck/core";
+import { bindAll } from "lodash";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { PageTurn, Poem } from "../../components";
 import * as actionCreators from "../../store/actions/actionCreators";
 
 
-interface Props {
-  fetchPoem: (...args: any[]) => any;
-  fetchPoemIds: (...args: any[]) => any;
-  path?: string;
-  poemId: string;
-  poems: any;
-  poemIds: string[];
-  value?: string;
-}
-
-
-export class RawHome extends Component<Props, any> {
-  public componentWillMount() {
-    const { fetchPoem, fetchPoemIds, poemId, poemIds } = this.props;
+export class RawHome extends Component {
+  componentWillMount() {
+    const { fetchPoem, fetchPoemIds, poemId } = this.props;
 
     fetchPoemIds().then(() => {
       if (!poemId || !poemId.length) {
@@ -32,11 +21,11 @@ export class RawHome extends Component<Props, any> {
     bindAll(this, [ "keypress" ]);
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     window.addEventListener("keyup", this.keypress);
   }
 
-  public componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps) {
     const { fetchPoem, poemId, poems } = nextProps;
     const hasPoemId = poemId && poemId.length;
     const isPrevPoem = poemId === this.props.poemId;
@@ -45,19 +34,19 @@ export class RawHome extends Component<Props, any> {
     }
   }
 
-  public componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener("keyup", this.keypress);
   }
 
-  public render(props: Props) {
-    const { poems, poemId, poemIds } = props;
+  render() {
+    const { poems, poemId } = this.props;
 
     return (
-      <main class="home">
+      <main className="home">
         <PageTurn direction="left" onClick={this.turn.bind(this, "left")} />
         <PageTurn direction="right" onClick={this.turn.bind(this, "right")} />
-        <div class="left-half" onClick={this.turn.bind(this, "left")} />
-        <div class="right-half" onClick={this.turn.bind(this, "right")} />
+        <div className="left-half" onClick={this.turn.bind(this, "left")} />
+        <div className="right-half" onClick={this.turn.bind(this, "right")} />
         <Poem poem={poems[poemId]} />
       </main>
     );
@@ -65,11 +54,11 @@ export class RawHome extends Component<Props, any> {
 
 
   // PRIVATE
-  private keypress(e: KeyboardEvent) {
+  keypress(e) {
     this.turn(e.key);
   }
 
-  private turn(direction: string) {
+  turn(direction) {
     const { poemId, poemIds } = this.props;
     const currIndex = poemIds.indexOf(poemId);
 
@@ -95,7 +84,7 @@ export class RawHome extends Component<Props, any> {
 }
 
 export default connect(
-  (state: any) => ({
+  (state) => ({
     poemIds: state.poems.allIds,
     poems: state.poems.byId
   }),

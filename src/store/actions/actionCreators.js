@@ -1,9 +1,8 @@
-import { Poem } from "../../types";
 import * as services from "../services/services";
 import * as types from "./actionTypes";
 
 
-export function createPoem(poem: Poem) {
+export function createPoem(poem) {
   return {
     callAPI() { return services.createPoem(poem); },
     payload: { poem },
@@ -15,7 +14,7 @@ export function createPoem(poem: Poem) {
   };
 }
 
-export function fetchPoem(poemId: string) {
+export function fetchPoem(poemId) {
   return {
     callAPI() { return services.fetchPoem(poemId); },
     payload: { poemId },
@@ -27,7 +26,7 @@ export function fetchPoem(poemId: string) {
   };
 }
 
-export function fetchPoemSuccess(poem: Poem, poemId: string) {
+export function fetchPoemSuccess(poem, poemId) {
   const type = types.FETCH_POEM_SUCCESS;
   return {
     payload: { poem, poemId },

@@ -1,6 +1,9 @@
-import "./vendor/wing";
-import "@zuck/core/dist/index.css";
-import "./main.styl";
+import React from "react";
+import { render } from "react-dom";
+import "./vendor/wing.css";
+import "./main.css";
+import { Main } from "./Main";
+import registerServiceWorker from "./registerServiceWorker";
 
-import main from "./main";
-export default main;
+render(<Main />, document.getElementById("root"));
+registerServiceWorker();

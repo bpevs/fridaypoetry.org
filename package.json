@@ -1,10 +1,11 @@
 {
   "name": "fridaypoetry.org",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "For writing poetry. On Friday.",
-  "author": "Benjamin Pevsner",
+  "homepage": "https://fridaypoetry.org",
   "license": "MIT",
-  "main": "src/index.tsx",
+  "author": "Benjamin Pevsner",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivebencrazy/fridaypoetry.org.git"
@@ -13,44 +14,37 @@
     "poetry"
   ],
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build && cp ./build/index.html ./build/404.html",
-    "serve": "preact build && preact serve",
-    "deploy": "npm test && npm run build",
-    "dev": "preact watch",
-    "test": "npm run test:lint && npm run test:unit",
-    "test:coverage": "jest --config ./jestconfig.json --coverage",
-    "test:lint": "tslint --project ./tslint.json",
-    "test:unit": "jest --config ./jestconfig.json"
+    "build": "npm-run-all build:styles build:scripts",
+    "build:scripts": "react-scripts build",
+    "build:styles": "stylus src/ -o src/",
+    "deploy": "CI=true npm test && npm run build && cp ./build/index.html ./build/404.html",
+    "eject": "react-scripts eject",
+    "start": "npm-run-all -p start:styles start:scripts",
+    "start:scripts": "react-scripts start",
+    "start:styles": "npm run build:styles && stylus -w src/ -o src/",
+    "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
     "@zuck/core": "Blanket-Warriors/Zuck#latest-build",
-    "axios": "^0.16.2",
+    "axios": "^0.17.1",
     "lodash-es": "^4.17.4",
-    "preact": "^8.2.5",
-    "preact-async-route": "^2.0.0",
-    "preact-compat": "^3.17.0",
-    "preact-redux": "^2.0.2",
-    "preact-router": "^2.5.7",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.0",
-    "@types/lodash": "^4.14.74",
-    "@types/xss-filters": "0.0.27",
-    "if-env": "^1.0.0",
-    "jest": "^21.1.0",
-    "postcss": "^6.0.11",
-    "preact-cli": "^1.4.1",
-    "preact-cli-plugin-typescript": "^0.2.2",
-    "preact-to-json": "^1.1.1",
+    "@types/jest": "^21.1.6",
+    "@types/lodash": "^4.14.85",
+    "@types/react": "^16.0.25",
+    "@types/xss-filters": "^0.0.27",
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "npm-run-all": "^4.1.2",
     "redux-mock-store": "^1.3.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "ts-jest": "^21.0.1",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.2"
+    "stylus": "^0.54.5"
   }
 }

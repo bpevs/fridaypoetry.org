@@ -1,18 +1,11 @@
-import { Button, Col, Row } from "@zuck/core";
-import { assign, bindAll, clone, identity } from "lodash";
-import { Component, h } from "preact";
-import { connect } from "preact-redux";
-import { route } from "preact-router";
+import { Button, Col, route, Row } from "@zuck/core";
+import { assign, bindAll, clone } from "lodash";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import Poem from "../../components/Poem/Poem";
 import TextArea from "../../components/TextArea/TextArea";
 import * as actionCreators from "../../store/actions/actionCreators";
 
-
-interface Props {
-  createPoem: (...args: any[]) => any;
-  onSubmit: () => void;
-  path?: string;
-}
 
 const defaultContent = {
   author: null,
@@ -21,14 +14,14 @@ const defaultContent = {
 };
 
 
-export class RawTypewriter extends Component<Props, any> {
-  constructor(props: any) {
+export class RawTypewriter extends Component {
+  constructor(props) {
     super(props);
     this.state = { content: clone(defaultContent) };
     bindAll(this, [ "submit", "edit" ]);
   }
 
-  public render(props: any, state: any) {
+  render(props, state) {
     const { author, text, title } = state.content;
 
     return (
@@ -62,25 +55,25 @@ export class RawTypewriter extends Component<Props, any> {
 
 
   // PRIVATE
-  private submit(event: Event) {
+  submit(event) {
     event.preventDefault();
-
-    const shouldSubmit = confirm(`
-      Ready to submit your poem?\n
-      This is your last chance make edits.
-    `);
+    const shouldSubmit = true;
+    // const shouldSubmit = confirm(`
+    //   Ready to submit your poem?\n
+    //   This is your last chance make edits.
+    // `);
 
     if (!shouldSubmit) { return; }
 
     this.props.createPoem(this.state.content)
-      .then(({ payload, type }: any) => {
+      .then(({ payload, type }) => {
           if (type === "CREATE_POEM_SUCCESS") {
             route(`/poem/${payload.poemId}`);
           }
       });
   }
 
-  private edit(event: any) {
+  edit(event) {
     const nextContent = assign({}, this.state.content, {
       [event.target.name]: event.target.value
     });
@@ -93,4 +86,4 @@ export class RawTypewriter extends Component<Props, any> {
 export default connect(
   null,
   { createPoem: actionCreators.createPoem }
-)(RawTypewriter as any);
+)(RawTypewriter);

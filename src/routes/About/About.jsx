@@ -1,18 +1,12 @@
 import { Col, Row } from "@zuck/core";
-import { Component, h } from "preact";
-require("./About");
+import * as React from "react";
 
 
-interface Props {
-  path?: string;
-}
-
-
-export default function About(props: Props) {
+export default function About(props) {
   return (
-    <main class="info-page">
-      <div class="origin-story">
-        <h1 class="title">Friday Poetry</h1>
+    <main className="info-page">
+      <div className="origin-story">
+        <h1 className="title">Friday Poetry</h1>
         <p>
           Friday poetry was started by Dan in the MakerSquare alumni Slack Channel
           (MakerSquare was a immersive programming course that no longer exists). Every week,
@@ -24,13 +18,13 @@ export default function About(props: Props) {
       <Row>
         <Col>
           <img
-            class="origin-image"
+            className="origin-image"
             alt="wordsmith"
             src="/assets/images/wordsmith.jpg" />
         </Col>
         <Col>
           <img
-            class="origin-image"
+            className="origin-image"
             alt="the first professional poem"
             src="/assets/images/poem.jpg" />
         </Col>

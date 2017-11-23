@@ -1,4 +1,4 @@
-import { BASE_URL } from "../src/constants";
+import { BASE_URL } from "../src/config";
 
 const mockResponses = {
   default: null,
@@ -15,7 +15,7 @@ const mockResponses = {
 };
 
 
-const get = jest.fn((url: string) => {
+const get = jest.fn((url) => {
   switch (url) {
     case `${BASE_URL}.json?shallow=true`:
       return Promise.resolve({ data: mockResponses.successIds });
@@ -27,7 +27,7 @@ const get = jest.fn((url: string) => {
 });
 
 
-const post = jest.fn((url: string, poemData: any) => {
+const post = jest.fn((url, poemData) => {
   if (!poemData) {
     return Promise.reject("No poem Data");
   }
@@ -37,7 +37,7 @@ const post = jest.fn((url: string, poemData: any) => {
     return Promise.reject("no poem text");
   }
 
-  return Promise.resolve({data: { name: "poem-id" }});
+  return Promise.resolve({ data: { name: "poem-id" } });
 });
 
 export default { get, post };

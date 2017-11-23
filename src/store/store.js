@@ -1,8 +1,3 @@
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
-  }
-}
 
 import { callApiMiddleware } from "@zuck/core";
 import { applyMiddleware, compose, createStore } from "redux";
@@ -11,7 +6,7 @@ import thunkMiddleware from "redux-thunk";
 import reducers from "./reducers/reducers";
 
 
-let store: any = null;
+let store = null;
 
 const defaultOptions = {
   history: null

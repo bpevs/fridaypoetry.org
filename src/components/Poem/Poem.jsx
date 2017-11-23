@@ -1,25 +1,25 @@
-import { h } from "preact";
+import * as React from "react";
 import { inHTMLData } from "xss-filters";
 
 
-export default function Poem(props: any) {
+export default function Poem(props) {
   if (!props.poem) {
     return (
-      <div class="no-content"></div>
+      <div className="no-content"></div>
     );
   }
 
   const { author, text } = props.poem;
   const authorComponent = (
-    <p class="author">
+    <p className="author">
       - {inHTMLData(author)}
     </p>
   );
 
   return (
-    <div class="poem">
-      <div class="content">
-        <p class="text">{inHTMLData(text)}</p>
+    <div className="poem">
+      <div className="content">
+        <p className="text">{inHTMLData(text)}</p>
         {author != null ? authorComponent : "" }
       </div>
     </div>

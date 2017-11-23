@@ -1,18 +1,18 @@
 import { bindAll } from "lodash";
-import { Component, h } from "preact";
+import React, { Component } from "react";
 
 
-export default class TextArea extends Component<any, any> {
-  public state: any;
+export default class TextArea extends Component {
+  state;
 
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.state = { element: null, editor: null };
     bindAll(this, [ "saveRef" ]);
   }
 
 
-  public render() {
+  render() {
     const textAreaProps = this.props;
     return (
       <div className="text-area__wrapper">
@@ -26,7 +26,7 @@ export default class TextArea extends Component<any, any> {
 
 
   // PRIVATE
-  private saveRef(element: any) {
+  saveRef(element) {
     this.setState({ element });
   }
 }

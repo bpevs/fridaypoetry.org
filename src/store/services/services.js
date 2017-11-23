@@ -1,10 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-import { assign, identity, map, pick, toArray } from "lodash";
-import { BASE_URL } from "../../constants";
-import { Poem } from "../../types";
+import axios from "axios";
+import { pick } from "lodash";
+import { BASE_URL } from "../../config";
 
 
-export function createPoem(poem: any) {
+export function createPoem(poem) {
   const IS_FRIDAY = (new Date()).getDay() === 5;
 
   if (!IS_FRIDAY) {
@@ -18,18 +17,18 @@ export function createPoem(poem: any) {
 
   const poemData = pick(poem, [ "author", "text", "title" ]);
   return axios.post(`${BASE_URL}.json`, poemData)
-    .then((response: AxiosResponse) => ({ poemId: response.data.name }));
+    .then((response) => ({ poemId: response.data.name }));
 }
 
 export function fetchPoemIds() {
   return axios.get(`${BASE_URL}.json?shallow=true`)
-    .then((response: AxiosResponse) => {
+    .then((response) => {
       const ids = Object.keys(response.data).sort().reverse();
       return { ids };
     });
 }
 
-export function fetchPoem(poemId: string) {
+export function fetchPoem(poemId) {
   return axios.get(`${BASE_URL}/${poemId}.json`)
-    .then((response: AxiosResponse) => ({ poem: response.data }));
+    .then((response) => ({ poem: response.data }));
 }

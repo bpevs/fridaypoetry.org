@@ -1,2 +1,2 @@
-FRIDAY POETRY
+Friday Poetry
 =============

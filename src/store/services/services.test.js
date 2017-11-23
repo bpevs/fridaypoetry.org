@@ -1,7 +1,7 @@
 jest.mock("axios");
 
 import axios from "axios";
-import { BASE_URL } from "../../constants";
+import { BASE_URL } from "../../config";
 import { createPoem, fetchPoem, fetchPoemIds } from "./services";
 
 
