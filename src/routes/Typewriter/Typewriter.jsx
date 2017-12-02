@@ -8,9 +8,9 @@ import * as actionCreators from "../../store/actions/actionCreators";
 
 
 const defaultContent = {
-  author: null,
+  author: "",
   text: "",
-  title: null
+  title: ""
 };
 
 
@@ -21,8 +21,8 @@ export class RawTypewriter extends Component {
     bindAll(this, [ "submit", "edit" ]);
   }
 
-  render(props, state) {
-    const { author, text, title } = state.content;
+  render() {
+    const { author, text, title } = this.state.content;
 
     return (
       <main className="typewriter typewriter__wrapper">
