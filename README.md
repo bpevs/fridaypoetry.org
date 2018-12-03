@@ -1,9 +1,56 @@
-Friday Poetry
-=============
-![Travis Build Status](https://travis-ci.org/ivebencrazy/fridaypoetry.org.svg?branch=master)
+# app
+http://www.albertgao.xyz/2018/02/04/how-to-do-server-side-rendering-with-feathersjs-and-nextjs/
+> 
 
-Friday poetry was started by Dan in the MakerSquare alumni Slack Channel (MakerSquare was a immersive programming course that no longer exists). Every week, people were encouraged to extend their creative power, and write some poetry! I enjoyed doing this because it stretched parts of my brain that I don't use on a regular basis. In fact, I enjoyed doing this so much, I decided to make it into a website. Here it is!
+## About
 
-<p align="center">
- 	<img src="./src/assets/images/screenshot1.png" alt="Friday Poetry Screenshot"/>
-</p>
+This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+
+## Getting Started
+
+Getting up and running is as easy as 1, 2, 3.
+
+1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
+2. Install your dependencies
+
+    ```
+    cd path/to/app; npm install
+    ```
+
+3. Start your app
+
+    ```
+    npm start
+    ```
+
+## Testing
+
+Simply run `npm test` and all your tests in the `test/` directory will be run.
+
+## Scaffolding
+
+Feathers has a powerful command line interface. Here are a few things it can do:
+
+```
+$ npm install -g @feathersjs/cli          # Install Feathers CLI
+
+$ feathers generate service               # Generate a new Service
+$ feathers generate hook                  # Generate a new Hook
+$ feathers help                           # Show all commands
+```
+
+## Help
+
+For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+
+## Changelog
+
+__0.1.0__
+
+- Initial release
+
+## License
+
+Copyright (c) 2018
+
+Licensed under the [MIT license](LICENSE).
