@@ -1,0 +1,41 @@
+{
+  "name": "Friday Poetry",
+  "short_name": "FridayPoetry",
+  "start_url": "/",
+  "description": "A site for writing poetry. On Friday.",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+  "theme_color": "#008ae1",
+  "version": "1.1.2",
+  "icons": [{
+    "src": "/assets/favicon-16x16.png",
+    "type": "image/png",
+    "sizes": "16x16"
+  },
+  {
+    "src": "/assets/favicon-32x32.png",
+    "type": "image/png",
+    "sizes": "32x32"
+  },
+  {
+    "src": "/assets/favicon-150x150-mstile.png",
+    "type": "image/png",
+    "sizes": "150x150"
+  },
+  {
+    "src": "/assets/favicon-180x180-apple-touch-icon.png",
+    "type": "image/png",
+    "sizes": "180x180"
+  },
+  {
+    "src": "/assets/favicon-192x192-android-chrome.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+  {
+    "src": "/assets/favicon-512x512-android-chrome.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }]
+}

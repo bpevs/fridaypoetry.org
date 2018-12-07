@@ -1,0 +1,18 @@
+{
+  "compiler": {
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+  },
+  "fmt": {
+    "files": {
+      "include": ["source/"],
+      "exclude": ["source/public/"],
+    }
+  },
+  "importMap": "import_map.json",
+  "tasks": {
+    "serve": "deno run --no-check --allow-net --allow-read --allow-env source/main.tsx",
+    "watch": "deno run --no-check --allow-net --allow-read --allow-env --watch source/main.tsx"
+  }
+}
