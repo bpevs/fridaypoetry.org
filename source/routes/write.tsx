@@ -1,17 +1,37 @@
 /* @jsx h */
 import { h } from "preact";
+import { useCallback, useState } from "preact/hooks";
+import { Poem } from "../types.ts";
 
-// async function getPoem(id) {
-//   return {
-//     "author": "Trav-f-isnt-is",
-//     "text":
-//       "We work while young and healthy,\noft too much to enjoy a break,\nand all for the goal of being wealthy,\nnever asking what's really at stake.\nOur value defined by what we earn,\nno job? no money? no place for you here,\nyet for material goods, our souls don't yearn,\nbut rather connection, compassion, it's clear.\nOur best years given to some company for money,\nwhich all gets spent to heal the damage done\nby that very job that slowly killed us, it's funny,\nand sad, and obvious, and in the end no one's won.\nWe all know this, and this is how it will always be,\nwithout some intervention, perhaps a catastrophe,\nyet the bravest of us can break free, individually,\nand perhaps get others asking, is this how it should be?",
-//     "title": "Should it be",
-//   };
-// }
+function PoemPreview({ poem }: { poem: Poem }) {
+  return null;
+}
 
-useCreatePoem() {}
+const defaultContent = Object.freeze({
+  id: "0",
+  text: "",
+});
 
 export default function Write() {
-  return <p>write</p>;
+  const [state, setState] = useState<Poem>({ ...defaultContent });
+  const { author, text, title } = state;
+
+  return (
+    <form>
+      <label for="title">Title</label>
+      <input name="title" value={title || ""} type="text" />
+
+      <label for="author">Author</label>
+      <input name="author" value={author || ""} type="text" />
+
+      <fieldset>
+        <legend>Poem</legend>
+        <label for="content">Content</label>
+        <textarea name="content" rows={5} cols={100} />
+        <label for="preview">Preview</label>
+        <PoemPreview poem={{ author, text, id: "0" }} />
+      </fieldset>
+      <button>Submit</button>
+    </form>
+  );
 }

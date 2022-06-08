@@ -4,3 +4,5 @@ export interface Poem {
   author?: string;
   title?: string;
 }
+
+export type DbResponse = any;

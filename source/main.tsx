@@ -1,27 +1,39 @@
 /* @jsx h */
 
-import { app, contentType, get, post } from "dinatra";
+import { App, contentType, get, post } from "dinatra";
 import { h } from "preact";
 import render from "preact-render-to-string";
 
-import { getPoem, getPoems, postPoem } from "./utilities/database.ts";
-import Client from "./client.jsx";
+import { getPoem, getPoems, postPoem } from "./database.ts";
+import Client from "./client.tsx";
 import { ROUTE } from "./constants.ts";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
 const wrap = (content: string) => `<!DOCTYPE html>${content}`;
 
-app(
-  get("/", async () => {
-    return wrap(render(<Client route={READ} poem={await getPoem()} />));
-  }),
+const app = new App(8080, true);
+
+const samplePoem = {
+  id: "0",
+  author: "Trav-f-isnt-is",
+  text:
+    "We work while young and healthy,\noft too much to enjoy a break,\nand all for the goal of being wealthy,\nnever asking what's really at stake.\nOur value defined by what we earn,\nno job? no money? no place for you here,\nyet for material goods, our souls don't yearn,\nbut rather connection, compassion, it's clear.\nOur best years given to some company for money,\nwhich all gets spent to heal the damage done\nby that very job that slowly killed us, it's funny,\nand sad, and obvious, and in the end no one's won.\nWe all know this, and this is how it will always be,\nwithout some intervention, perhaps a catastrophe,\nyet the bravest of us can break free, individually,\nand perhaps get others asking, is this how it should be?",
+  title: "Should it be",
+};
+
+app.register(
+  get(
+    "/",
+    async () => wrap(render(<Client route={READ} poem={await getPoem()} />)),
+  ),
   get("/about", () => wrap(render(<Client route={ABOUT} />))),
-  get("/poems/new", () => wrap(render(<Client route={WRITE} />))),
-  get("/poems/:id", async ({ params }) => {
-    const poem = await getPoem(params.id);
-    return wrap(render(<Client route={READ} poem={poem} />));
-  }),
+  get("/new", () => wrap(render(<Client route={WRITE} />))),
+  get(
+    "/poems/:id",
+    async ({ params }) =>
+      wrap(render(<Client route={READ} poem={await getPoem(params.id)} />)),
+  ),
   get("/api/poems", async () => [
     200,
     contentType("json"),
@@ -32,8 +44,13 @@ app(
     contentType("json"),
     await JSON.stringify(samplePoem),
   ]),
-  post("/api/poems", async ({ params }) => {
-    await postPoem();
+  post("/api/poems", ({ params }) => {
+    postPoem(samplePoem);
+    return "complete";
   }),
   get("/error", () => [500, "an error has occured"]),
 );
+
+app.serve();
+
+console.log("listening on http://localhost:8080");

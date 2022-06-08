@@ -1,6 +1,6 @@
 import "dotenv";
 import { Client } from "postgres";
-import { Poem } from "../types.ts";
+import { DbResponse, Poem } from "./types.ts";
 
 const client = new Client({
   database: Deno.env.get("DB_DATABASE"),
@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 export async function createTable() {
-  console.log('create table');
+  console.log("create table");
   await client.connect();
 
   try {
@@ -33,34 +33,50 @@ export async function createTable() {
   }
 }
 
-export async function getPoem(id) {
+export async function getPoem(id?: string) {
   await client.connect();
   try {
-    const query = "SELECT * FROM poems WHERE id = $ID;";
-    const result = await client.queryObject<DbResponse>(query, { id });
+    let result;
+    if (id) {
+      const query = "SELECT * FROM poems WHERE id = $ID;";
+      result = await client.queryObject<DbResponse>(query, { id });
+    } else {
+      const query = "SELECT * FROM poems;";
+      result = (await client.queryObject<DbResponse>(query)).rows[0];
+    }
     await client.end();
     return result.rows[0];
-  } catch {}
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function getPoems() {
   await client.connect();
   try {
     const query = "SELECT * FROM poems;";
-    const result = await client.queryObject<DbResponse>(query, { id });
+    const result = await client.queryObject<DbResponse>(query);
     await client.end();
     return result.rows;
-  } catch {}
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function postPoem(poem: Poem) {
   await client.connect();
   try {
     const query =
-      "INSERT into poems (id, author, title, text) " +
-      "VALUES ($ID, $AUTHOR, $TITLE, $TEXT) RETURNING *;";
-    const result = await client.queryObject<DbResponse>(query, poem);
+      "INSERT into poems (id, author, title, text) VALUES ($ID, $AUTHOR, $TITLE, $TEXT) RETURNING *;";
+    const result = await client.queryObject<DbResponse>(query, {
+      id: poem.id || "",
+      author: poem.author || "",
+      title: poem.title || "",
+      text: poem.text || "",
+    });
     await client.end();
     return result.rows;
-  } catch {}
+  } catch (error) {
+    console.error(error);
+  }
 }

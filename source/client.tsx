@@ -1,22 +1,30 @@
 /* @jsx h */
-import { h } from "preact";
+import { h, VNode } from "preact";
 
 import { ROUTE } from "./constants.ts";
-import Only from "./components/only.tsx";
+import { Poem } from "./types.ts";
 
 import About from "./routes/about.tsx";
 import Read from "./routes/read.tsx";
-// import Write from "./routes/write.tsx";
+import Write from "./routes/write.tsx";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
-export default function Html({ route, ...props }) {
+function Only({ if: predicate, children }: {
+  if: boolean;
+  // deno-lint-ignore no-explicit-any
+  children: VNode<any>;
+}) {
+  return predicate ? children : null;
+}
+
+export default function Html({ route, poem }: { route: string; poem?: Poem }) {
   console.log(route);
   return (
     <html lang="en">
       <head>
         <title>Friday Poetry</title>
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="description" content="Poetry on Fridays" />
         <meta name="theme-color" content="#000000" />
         <meta name="title" content="Friday Poetry" />
@@ -33,9 +41,11 @@ export default function Html({ route, ...props }) {
           <About />
         </Only>
         <Only if={route === READ}>
-          <Read {...props} />
+          <Read poem={poem} />
         </Only>
-        <Only if={route === WRITE}>write</Only>
+        <Only if={route === WRITE}>
+          <Write />
+        </Only>
       </body>
     </html>
   );
