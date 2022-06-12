@@ -1,10 +1,10 @@
 /* @jsx h */
 
-import { App, contentType, get, post } from "dinatra";
+import { App, contentType, get, post, redirect } from "dinatra";
 import { h } from "preact";
 import render from "preact-render-to-string";
 
-import { getPoem, getPoems, postPoem } from "./database.ts";
+import { getPoem, getRecentPoems, postPoem } from "./database.ts";
 import Client from "./client.tsx";
 import { ROUTE } from "./constants.ts";
 
@@ -25,15 +25,16 @@ const samplePoem = {
 app.register(
   get(
     "/",
-    async () => wrap(render(<Client route={READ} poem={await getPoem()} />)),
+    async () => wrap(render(<Client route={READ} poems={await getRecentPoems()} />)),
   ),
   get("/about", () => wrap(render(<Client route={ABOUT} />))),
   get("/new", () => wrap(render(<Client route={WRITE} />))),
   get(
     "/poems/:id",
     async ({ params }) =>
-      wrap(render(<Client route={READ} poem={await getPoem(params.id)} />)),
+      wrap(render(<Client route={READ} poems={[await getPoem(params.id)]} />)),
   ),
+
   get("/api/poems", async () => [
     200,
     contentType("json"),
@@ -45,8 +46,8 @@ app.register(
     await JSON.stringify(samplePoem),
   ]),
   post("/api/poems", ({ params }) => {
-    postPoem(samplePoem);
-    return "complete";
+    postPoem(params);
+    return redirect("/", 302);
   }),
   get("/error", () => [500, "an error has occured"]),
 );

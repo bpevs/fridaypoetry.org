@@ -1,34 +1,36 @@
 /* @jsx h */
 import { h } from "preact";
-import { useCallback } from "preact/hooks";
+import { useCallback, useState } from "preact/hooks";
 import type { Poem } from "../types.ts";
 
-export default function Read({ poem }: { poem?: Poem }) {
-  const onClick = useCallback(() => {
-  }, [poem]);
+export default function Read({ poems }: { poems?: Poem[] }) {
+  const [currPoemIndex, setCurrPoemIndex] = useState<number>(0);
+  const currPoem = poems?.[currPoemIndex];
 
-  if (!poem) return <div className="no-content" />;
+  const prevPoemId = poems[Math.max(currPoemIndex - 1, 0)]?.id;
+  const nextPoemId = poems[Math.min(currPoemIndex + 1, poems.length)]?.id;
 
-  const { author, text, title } = poem;
+  if (!currPoem) return <div className="no-content">No Content</div>;
+
+  const { author, content, title } = currPoem;
 
   return (
     <main style="margin: auto; max-width: 500px;">
-      {title ? <h1>title</h1> : null}
+      {title ? <h1>{title}</h1> : null}
 
-      <p style="white-space:pre-wrap;">{poem.text}</p>
+      <p style="white-space:pre-wrap;">{content}</p>
 
       {author ? <p className="author">- {author}</p> : null}
 
-      <PageTurn onClick={onClick} disabled={false} direction="left" />
-      <PageTurn onClick={onClick} disabled={false} direction="right" />
+      <PageTurn direction="left" id={prevPoemId} />
+      <PageTurn direction="right" id={nextPoemId} />
     </main>
   );
 }
 
-function PageTurn({ onClick, disabled = false, direction = "left" }: {
-  onClick: any;
-  disabled: boolean;
+function PageTurn({ direction = "left", id }: {
   direction: string;
+  id: string;
 }) {
-  return <button>turn page</button>;
+  return <a href={`/poems/${id}`}><button disabled={!Boolean(id)}>turn page {direction}</button></a>;
 }

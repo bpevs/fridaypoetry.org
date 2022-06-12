@@ -9,15 +9,15 @@ function PoemPreview({ poem }: { poem: Poem }) {
 
 const defaultContent = Object.freeze({
   id: "0",
-  text: "",
+  content: "",
 });
 
 export default function Write() {
   const [state, setState] = useState<Poem>({ ...defaultContent });
-  const { author, text, title } = state;
+  const { author, content, title } = state;
 
   return (
-    <form>
+    <form action="/api/poems" method="post">
       <label for="title">Title</label>
       <input name="title" value={title || ""} type="text" />
 
@@ -29,9 +29,9 @@ export default function Write() {
         <label for="content">Content</label>
         <textarea name="content" rows={5} cols={100} />
         <label for="preview">Preview</label>
-        <PoemPreview poem={{ author, text, id: "0" }} />
+        <PoemPreview poem={{ author, content, id: "0" }} />
       </fieldset>
-      <button>Submit</button>
+      <input type="submit" value="Submit">Submit</input>
     </form>
   );
 }

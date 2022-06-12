@@ -18,8 +18,7 @@ function Only({ if: predicate, children }: {
   return predicate ? children : null;
 }
 
-export default function Html({ route, poem }: { route: string; poem?: Poem }) {
-  console.log(route);
+export default function Html({ route, poems }: { route: string; poems?: Poem[] }) {
   return (
     <html lang="en">
       <head>
@@ -41,7 +40,7 @@ export default function Html({ route, poem }: { route: string; poem?: Poem }) {
           <About />
         </Only>
         <Only if={route === READ}>
-          <Read poem={poem} />
+          <Read poems={poems} />
         </Only>
         <Only if={route === WRITE}>
           <Write />

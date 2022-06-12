@@ -1,5 +1,6 @@
 import "dotenv";
 import { Client } from "postgres";
+import { v4 } from "std/uuid";
 import { DbResponse, Poem } from "./types.ts";
 
 const client = new Client({
@@ -16,6 +17,7 @@ export async function createTable() {
 
   try {
     await client.queryObject`
+      DROP TABLE IF EXISTS "poems";
       -- ---
       -- Sessions Table
       -- ---
@@ -23,7 +25,8 @@ export async function createTable() {
         "id" TEXT,
         "author" TEXT,
         "title" TEXT,
-        "text" TEXT,
+        "content" TEXT,
+        "published" TIMESTAMP,
         PRIMARY KEY ("id")
       );
     `;
@@ -40,18 +43,15 @@ export async function getPoem(id?: string) {
     if (id) {
       const query = "SELECT * FROM poems WHERE id = $ID;";
       result = await client.queryObject<DbResponse>(query, { id });
-    } else {
-      const query = "SELECT * FROM poems;";
-      result = (await client.queryObject<DbResponse>(query)).rows[0];
     }
     await client.end();
-    return result.rows[0];
+    return result?.rows?.[0];
   } catch (error) {
     console.error(error);
   }
 }
 
-export async function getPoems() {
+export async function getRecentPoems() {
   await client.connect();
   try {
     const query = "SELECT * FROM poems;";
@@ -64,16 +64,20 @@ export async function getPoems() {
 }
 
 export async function postPoem(poem: Poem) {
+  const id = v4.generate();
   await client.connect();
   try {
     const query =
-      "INSERT into poems (id, author, title, text) VALUES ($ID, $AUTHOR, $TITLE, $TEXT) RETURNING *;";
-    const result = await client.queryObject<DbResponse>(query, {
-      id: poem.id || "",
+      "INSERT into poems (id, author, title, content, published) VALUES ($ID, $AUTHOR, $TITLE, $CONTENT, to_timestamp($PUBLISHED / 1000.0)) RETURNING *;";
+    const params = {
+      id,
       author: poem.author || "",
       title: poem.title || "",
-      text: poem.text || "",
-    });
+      content: poem.content || "",
+      published: Date.now()
+    };
+    console.log(params);
+    const result = await client.queryObject<DbResponse>(query, params);
     await client.end();
     return result.rows;
   } catch (error) {
