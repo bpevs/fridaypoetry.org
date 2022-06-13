@@ -36,13 +36,24 @@ export async function createTable() {
   }
 }
 
+const getPoemQuery = `
+SELECT *
+FROM (
+  SELECT id, author, title, content, published,
+    lag(id) OVER (ORDER BY published DESC) AS prev,
+    lead(id) OVER (ORDER BY published DESC) AS next
+  FROM poems
+) x
+WHERE id = $ID
+`;
+
 export async function getPoem(id?: string) {
   await client.connect();
   try {
     let result;
     if (id) {
-      const query = "SELECT * FROM poems WHERE id = $ID;";
-      result = await client.queryObject<DbResponse>(query, { id });
+      result = await client.queryObject<DbResponse>(getPoemQuery, { id });
+      console.log(result);
     }
     await client.end();
     return result?.rows?.[0];
@@ -54,7 +65,7 @@ export async function getPoem(id?: string) {
 export async function getRecentPoems() {
   await client.connect();
   try {
-    const query = "SELECT * FROM poems;";
+    const query = "SELECT * FROM poems ORDER BY published DESC;";
     const result = await client.queryObject<DbResponse>(query);
     await client.end();
     return result.rows;
@@ -68,13 +79,15 @@ export async function postPoem(poem: Poem) {
   await client.connect();
   try {
     const query =
-      "INSERT into poems (id, author, title, content, published) VALUES ($ID, $AUTHOR, $TITLE, $CONTENT, to_timestamp($PUBLISHED / 1000.0)) RETURNING *;";
+      "INSERT into poems (id, author, title, content, published) " +
+      "VALUES ($ID, $AUTHOR, $TITLE, $CONTENT, to_timestamp($PUBLISHED / 1000.0)) " +
+      "RETURNING *;";
     const params = {
       id,
       author: poem.author || "",
       title: poem.title || "",
       content: poem.content || "",
-      published: Date.now()
+      published: Date.now(),
     };
     console.log(params);
     const result = await client.queryObject<DbResponse>(query, params);

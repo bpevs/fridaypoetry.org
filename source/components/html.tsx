@@ -1,24 +1,18 @@
 /* @jsx h */
-import { h, VNode } from "preact";
+import { h } from "preact";
 
-import { ROUTE } from "./constants.ts";
-import { Poem } from "./types.ts";
+import { ROUTE } from "../constants.ts";
+import { Poem } from "../types.ts";
 
-import About from "./routes/about.tsx";
-import Read from "./routes/read.tsx";
-import Write from "./routes/write.tsx";
+import About from "../routes/about.tsx";
+import Read from "../routes/read.tsx";
+import Write from "../routes/write.tsx";
+import { AppProps }, App from "./app.tsx"
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
-function Only({ if: predicate, children }: {
-  if: boolean;
-  // deno-lint-ignore no-explicit-any
-  children: VNode<any>;
-}) {
-  return predicate ? children : null;
-}
 
-export default function Html({ route, poems }: { route: string; poems?: Poem[] }) {
+export default function Html(props: { route: string; poems?: Poem[] }) {
   return (
     <html lang="en">
       <head>
@@ -36,15 +30,7 @@ export default function Html({ route, poems }: { route: string; poems?: Poem[] }
         <link rel="shortcut icon" href="/assets/favicon.ico" />
       </head>
       <body>
-        <Only if={route === ABOUT}>
-          <About />
-        </Only>
-        <Only if={route === READ}>
-          <Read poems={poems} />
-        </Only>
-        <Only if={route === WRITE}>
-          <Write />
-        </Only>
+        <App {...props} />
       </body>
     </html>
   );

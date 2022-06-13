@@ -4,11 +4,7 @@ import { useCallback, useState } from "preact/hooks";
 import type { Poem } from "../types.ts";
 
 export default function Read({ poems }: { poems?: Poem[] }) {
-  const [currPoemIndex, setCurrPoemIndex] = useState<number>(0);
-  const currPoem = poems?.[currPoemIndex];
-
-  const prevPoemId = poems[Math.max(currPoemIndex - 1, 0)]?.id;
-  const nextPoemId = poems[Math.min(currPoemIndex + 1, poems.length)]?.id;
+  const currPoem = poems?.[0];
 
   if (!currPoem) return <div className="no-content">No Content</div>;
 
@@ -22,8 +18,8 @@ export default function Read({ poems }: { poems?: Poem[] }) {
 
       {author ? <p className="author">- {author}</p> : null}
 
-      <PageTurn direction="left" id={prevPoemId} />
-      <PageTurn direction="right" id={nextPoemId} />
+      <PageTurn direction="left" id={currPoem.prev} />
+      <PageTurn direction="right" id={currPoem.next} />
     </main>
   );
 }
@@ -32,5 +28,9 @@ function PageTurn({ direction = "left", id }: {
   direction: string;
   id: string;
 }) {
-  return <a href={`/poems/${id}`}><button disabled={!Boolean(id)}>turn page {direction}</button></a>;
+  return (
+    <a href={`/poems/${id}`}>
+      <button disabled={!id}>turn page {direction}</button>
+    </a>
+  );
 }
