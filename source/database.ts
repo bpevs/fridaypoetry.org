@@ -89,7 +89,7 @@ export async function postPoem(poem: Poem) {
       content: poem.content || "",
       published: Date.now(),
     };
-    console.log(params);
+
     const result = await client.queryObject<DbResponse>(query, params);
     await client.end();
     return result.rows;
