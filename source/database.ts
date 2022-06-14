@@ -24,7 +24,8 @@ FROM (
 ) x`;
 const getAllPoemsQuery = "SELECT * FROM poems ORDER BY published DESC;";
 const getPoemByIdQuery = `SELECT * ${appendSurroundingIds} WHERE id = $ID`;
-const getFirstPoemQuery = `SELECT * ${appendSurroundingIds} ORDER BY published DESC LIMIT 1`;
+const getFirstPoemQuery =
+  `SELECT * ${appendSurroundingIds} ORDER BY published DESC LIMIT 1`;
 
 if (Deno?.args?.includes("--reset-db")) {
   createTable();

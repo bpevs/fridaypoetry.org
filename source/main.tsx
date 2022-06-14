@@ -52,8 +52,8 @@ const poems = new Router()
         id: null,
         published: Date.now(),
         content,
-        author: body.get("author"),
-        title: body.get("title"),
+        author: body.get("author") || undefined,
+        title: body.get("title") || undefined,
       });
       ctx.response.status = 302;
       ctx.response.redirect("/");

@@ -22,20 +22,22 @@ export default function Read({ poem }: { poem?: Poem }) {
   ].join(".");
 
   return (
-    <main className="poem">
-      {title ? <h1>{title}</h1> : null}
+    <main className="poem-container">
+      <div className="poem">
+        {title ? <h1>{title}</h1> : null}
 
-      <p className="content">{content}</p>
+        <p className="content">{content}</p>
 
-      <p>
-        <em className="author">- {author || "Anonymous"}</em>
-        , <span className="publish">{publishedDate}</span>
-      </p>
+        <p>
+          <em className="author">- {author || "Anonymous"}</em>
+          , <span className="publish">{publishedDate}</span>
+        </p>
 
-      <p>
-        <PageTurn direction={PREV} id={prev} />
-        <PageTurn direction={NEXT} id={next} />
-      </p>
+        <p>
+          <PageTurn direction={PREV} id={prev} />
+          <PageTurn direction={NEXT} id={next} />
+        </p>
+      </div>
     </main>
   );
 }

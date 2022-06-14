@@ -6,7 +6,7 @@ export default () => (
     <h1>Friday Poetry</h1>
 
     <p>
-    FridayPoetry.org is a website that lets you post your poetry on Fridays.
+      FridayPoetry.org is a website that lets you post your poetry on Fridays.
     </p>
 
     <p className="about-text">
@@ -32,7 +32,16 @@ export default () => (
     <p>
       fridaypoetry.org is{" "}
       <a href="https://github.com/ivebencrazy/fridaypoetry.org">open-source</a>
-      {" "} and made with ❤️ by <a href="https://bpev.me/apps">Ben Pevsner</a>
+      {"  "}and made with ❤️ by <a href="https://bpev.me/apps">Ben Pevsner</a>
+    </p>
+    <p>
+      <a
+        href="/friday-poetry-reminder.ics"
+        target="_BLANK"
+        download="Friday Poetry Reminder Calendar"
+      >
+        Download the FridayPoetry Calendar Reminder
+      </a>
     </p>
   </main>
 );
