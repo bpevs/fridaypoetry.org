@@ -1,8 +1,8 @@
 {
   "imports": {
-    "dinatra": "https://denopkg.com/syumai/dinatra@0.15.0/mod.ts",
     "dotenv": "https://deno.land/x/dotenv/load.ts",
     "asserts": "https://deno.land/std@0.123.0/testing/asserts.ts",
+    "oak": "https://deno.land/x/oak/mod.ts",
     "postgres": "https://deno.land/x/postgres/mod.ts",
     "preact": "https://esm.sh/preact@10.6.5?pin=v66",
     "preact/hooks": "https://esm.sh/preact@10.6.5/hooks?pin=v66",

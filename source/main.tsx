@@ -1,6 +1,6 @@
 /* @jsx h */
 
-import { App, contentType, get, post, redirect } from "dinatra";
+import { Application, Router } from "oak";
 import { h } from "preact";
 import render from "preact-render-to-string";
 
@@ -10,46 +10,60 @@ import { ROUTE } from "./constants.ts";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
-const app = new App(8080, true);
+const pages = new Router()
+  .get("/", async (ctx) => {
+    const { id } = (await getPoem()) || {}; // latest poem
+    if (id) {
+      ctx.response.status = 302;
+      ctx.response.redirect(`/poems/${id}`);
+    } else {
+      ctx.response.status = 404;
+    }
+  })
+  .get("/poems/:id", async (ctx) => {
+    ctx.response.body = wrap(
+      render(<Client route={READ} poem={await getPoem(ctx.params.id)} />)
+    );
+  })
+  .get("/about", (ctx) => {
+    ctx.response.body = wrap(render(<Client route={ABOUT} />));
+  })
+  .get("/new", (ctx) => {
+    ctx.response.body = wrap(render(<Client route={WRITE} />));
+  });
 
-app.register(
-  get(
-    "/",
-    async () => {
-      const { id } = (await getPoem()) || {}; // latest poem
-      return id ? redirect(`/poems/${id}`, 302) : 404;
-    },
-  ),
-  get("/about", () => wrap(render(<Client route={ABOUT} />))),
-  get("/new", () => wrap(render(<Client route={WRITE} />))),
-  get(
-    "/poems/:id",
-    async ({ params }) =>
-      wrap(render(<Client route={READ} poem={await getPoem(params.id)} />)),
-  ),
-  get("/api/poems", async () => [
-    200,
-    contentType("json"),
-    JSON.stringify(await getAllPoems()),
-  ]),
-  get("/api/poems/:id", async ({ params }) => [
-    200,
-    contentType("json"),
-    JSON.stringify(await getPoem(params.id)),
-  ]),
-  post("/api/poems", async ({ params }) => {
-    await createPoem({
-      id: null,
-      content: params.content,
-      published: params.published,
-      author: params.author,
-      title: params.title,
-    });
-    return redirect("/", 302);
-  }),
-  get("/error", () => [500, "an error has occured"]),
-);
-
-app.serve();
+const poems = new Router()
+  .get("/api/poems", async (ctx) => {
+    ctx.response.type = "application/json";
+    ctx.response.body = JSON.stringify(await getAllPoems());
+  })
+  .get("/api/poems/:id", async (ctx) => {
+    ctx.response.type = "application/json";
+    ctx.response.body = JSON.stringify(await getPoem(ctx?.params?.id));
+  })
+  .post("/api/poems", async (ctx) => {
+    const { content, author, title } = ctx?.params || {};
+    if (!content) {
+      ctx.response.status = 500;
+    } else {
+      const published = Date.now();
+      await createPoem({ id: null, published, content, author, title });
+      ctx.response.status = 302;
+      ctx.response.redirect("/");
+    }
+  });
 
 console.log("listening on http://localhost:8080");
+
+await new Application()
+  .use(pages.routes())
+  .use(poems.routes())
+  .use(async (ctx, next) => {
+    try {
+      await ctx.send({ root: `${Deno.cwd()}/public` });
+    } catch {
+      await next();
+    }
+  })
+  .listen({ port: 8080 });
+
