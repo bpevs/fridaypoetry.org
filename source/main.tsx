@@ -22,7 +22,7 @@ const pages = new Router()
   })
   .get("/poems/:id", async (ctx) => {
     ctx.response.body = wrap(
-      render(<Client route={READ} poem={await getPoem(ctx.params.id)} />)
+      render(<Client route={READ} poem={await getPoem(ctx.params.id)} />),
     );
   })
   .get("/about", (ctx) => {
@@ -66,4 +66,3 @@ await new Application()
     }
   })
   .listen({ port: 8080 });
-

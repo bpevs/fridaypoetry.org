@@ -22,6 +22,34 @@ const getAllPoemsQuery = "SELECT * FROM poems ORDER BY published DESC;";
 const getPoemByIdQuery = `SELECT * ${appendSurroundingIds} WHERE id = $ID`;
 const getFirstPoemQuery = `SELECT * ${appendSurroundingIds} LIMIT 1`;
 
+export async function createTable() {
+  await client.connect();
+
+  try {
+    await client.queryObject`
+      -- ---
+      -- Drop old tables. We want to reset data on release.
+      -- ---
+      DROP TABLE IF EXISTS "poems";
+
+      -- ---
+      -- Sessions Table
+      -- ---
+      CREATE TABLE poems (
+        "id" TEXT,
+        "author" TEXT,
+        "title" TEXT,
+        "content" TEXT,
+        "published" TIMESTAMP,
+        PRIMARY KEY ("id")
+      );
+    `;
+  } finally {
+    // end the client back into the pool
+    await client.end();
+  }
+}
+
 export async function getPoem(id?: string): Promise<Poem | undefined> {
   await client.connect();
   try {
