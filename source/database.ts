@@ -4,6 +4,7 @@ import { v4 } from "std/uuid";
 import { Poem } from "./types.ts";
 
 const client = new Client({
+  host_type: "tcp",
   database: Deno.env.get("DB_DATABASE"),
   hostname: Deno.env.get("DB_HOSTNAME"),
   password: Deno.env.get("DB_PASSWORD"),
@@ -22,16 +23,17 @@ const getAllPoemsQuery = "SELECT * FROM poems ORDER BY published DESC;";
 const getPoemByIdQuery = `SELECT * ${appendSurroundingIds} WHERE id = $ID`;
 const getFirstPoemQuery = `SELECT * ${appendSurroundingIds} LIMIT 1`;
 
+if (Deno?.args?.includes("--reset-db")) {
+  createTable();
+}
+
 export async function createTable() {
+  console.log("creating table");
   await client.connect();
 
   try {
     await client.queryObject`
-      -- ---
-      -- Drop old tables. We want to reset data on release.
-      -- ---
       DROP TABLE IF EXISTS "poems";
-
       -- ---
       -- Sessions Table
       -- ---
