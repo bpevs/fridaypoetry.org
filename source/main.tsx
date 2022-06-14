@@ -58,11 +58,11 @@ console.log("listening on http://localhost:8080");
 await new Application()
   .use(pages.routes())
   .use(poems.routes())
-  .use(async (ctx, next) => {
-    try {
-      await ctx.send({ root: `${Deno.cwd()}/public` });
-    } catch {
-      await next();
-    }
-  })
+  // .use(async (ctx, next) => {
+  //   try {
+  //     await ctx.send({ root: `${Deno.cwd()}/public` });
+  //   } catch {
+  //     await next();
+  //   }
+  // })
   .listen({ port: 8080 });
