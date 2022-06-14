@@ -46,7 +46,7 @@ function PageTurn({ direction = PREV, id }: {
 }) {
   const name = direction === PREV ? "previous" : "next";
   return (
-    <a href={`/poems/${id}`} id={name}>
+    <a href={`/poems/${id}`} id={name} className="page-turn">
       <button disabled={!id}>{name}</button>
     </a>
   );

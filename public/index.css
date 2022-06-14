@@ -109,6 +109,10 @@ nav .friday-message {
   text-align: center;
 }
 
+.page-turn {
+  padding-right: 1em;
+}
+
 .about-image {
   border: 5px solid black;
   width: 40%;
