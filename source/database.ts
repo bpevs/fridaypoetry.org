@@ -3,14 +3,15 @@ import { Client } from "postgres";
 import { v4 } from "std/uuid";
 import { Poem } from "./types.ts";
 
-const client = new Client({
-  host_type: "tcp",
-  database: Deno.env.get("DB_DATABASE"),
-  hostname: Deno.env.get("DB_HOSTNAME"),
-  password: Deno.env.get("DB_PASSWORD"),
-  port: Deno.env.get("DB_PORT"),
-  user: Deno.env.get("DB_USER"),
-});
+const database = Deno.env.get("DB_DATABASE");
+const hostname = Deno.env.get("DB_HOSTNAME");
+const password = Deno.env.get("DB_PASSWORD");
+const port = Deno.env.get("DB_PORT");
+const user = Deno.env.get("DB_USER");
+
+const client = new Client(
+  `postgres://${user}:${password}@${hostname}:${port}/${database} `,
+);
 
 const appendSurroundingIds = `
 FROM (
