@@ -75,22 +75,19 @@ nav .friday-message {
   max-width: 95%;
 }
 
-.content p {
+.content {
   font-size: 1em;
-}
-
-.content p.text {
   line-height: 1.5;
   margin-bottom: 15px;
   white-space: pre;
 }
 
-.content p.text:first-line {
+.content:first-line {
   font-variant: small-caps;
   letter-spacing: 1px;
 }
 
-.content p.text:last-child {
+.content:last-child {
   margin-bottom: 30px;
   padding-bottom: 30px;
 }
@@ -99,6 +96,12 @@ nav .friday-message {
   font-variant: small-caps;
   letter-spacing: 1px;
   padding-bottom: 3em;
+}
+
+.publish {
+  font-variant: small-caps;
+  font-size: 0.8em;
+  opacity: 0.6;
 }
 
 /* About Page */

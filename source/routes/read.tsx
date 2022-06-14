@@ -29,7 +29,7 @@ export default function Read({ poem }: { poem?: Poem }) {
 
       <p>
         <em className="author">- {author || "Anonymous"}</em>
-        , {publishedDate}
+        , <span className="publish">{publishedDate}</span>
       </p>
 
       <p>
