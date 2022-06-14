@@ -32,6 +32,7 @@ export default () => (
     <p>
       fridaypoetry.org is{" "}
       <a href="https://github.com/ivebencrazy/fridaypoetry.org">open-source</a>
+      {" "} and made with ❤️ by <a href="https://bpev.me/apps">Ben Pevsner</a>
     </p>
   </main>
 );

@@ -57,6 +57,14 @@ export default function App({ route, poem }: AppProps) {
       <footer>
         <Only if={route !== ABOUT}>
           <a href="/about">About FridayPoetry.org</a>
+          {" "}–{" "}
+          <a
+            href="/friday-poetry-reminder.ics"
+            target="_BLANK"
+            download="Friday Poetry Reminder Calendar"
+          >
+            Friday Reminder Calendar
+          </a>
         </Only>
       </footer>
       <Only if={route === READ}>
