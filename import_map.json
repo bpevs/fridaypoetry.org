@@ -1,12 +1,11 @@
 {
   "imports": {
     "dotenv": "https://deno.land/x/dotenv@v3.2.0/load.ts",
-    "asserts": "https://deno.land/std@0.123.0/testing/asserts.ts",
     "oak": "https://deno.land/x/oak@v10.6.0/mod.ts",
     "postgres": "https://deno.land/x/postgres@v0.15.0/mod.ts",
     "preact": "https://esm.sh/preact@10.6.5?pin=v66",
     "preact/hooks": "https://esm.sh/preact@10.6.5/hooks?pin=v66",
     "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.1.19?pin=v66&deps=preact@10.6.5",
-    "std/uuid": "https://deno.land/std@0.136.0/uuid/mod.ts"
+    "usid": "https://deno.land/x/usid@1.0.2/mod.ts"
   }
 }

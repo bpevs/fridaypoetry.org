@@ -29,6 +29,7 @@ const pages = new Router()
     ctx.response.body = wrap(render(<Client route={ABOUT} />));
   })
   .get("/new", (ctx) => {
+    ctx.response.status = 403;
     ctx.response.body = wrap(render(<Client route={WRITE} />));
   });
 
@@ -42,12 +43,18 @@ const poems = new Router()
     ctx.response.body = JSON.stringify(await getPoem(ctx?.params?.id));
   })
   .post("/api/poems", async (ctx) => {
-    const { content, author, title } = ctx?.params || {};
+    const body = await (ctx.request.body({ type: "form" })).value;
+    const content = body.get("content");
     if (!content) {
-      ctx.response.status = 500;
+      ctx.response.status = 400;
     } else {
-      const published = Date.now();
-      await createPoem({ id: null, published, content, author, title });
+      await createPoem({
+        id: null,
+        published: Date.now(),
+        content,
+        author: body.get("author"),
+        title: body.get("title"),
+      });
       ctx.response.status = 302;
       ctx.response.redirect("/");
     }

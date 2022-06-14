@@ -1,6 +1,6 @@
 import "dotenv";
 import { Client } from "postgres";
-import { v4 } from "std/uuid";
+import USID from "usid";
 import { Poem } from "./types.ts";
 
 const database = Deno.env.get("DB_DATABASE");
@@ -10,8 +10,10 @@ const port = Deno.env.get("DB_PORT");
 const user = Deno.env.get("DB_USER");
 
 const client = new Client(
-  `postgres://${user}:${password}@${hostname}:${port}/${database} `,
+  `postgres://${user}:${password}@${hostname}:${port}/${database}`,
 );
+
+const usid = new USID();
 
 const appendSurroundingIds = `
 FROM (
@@ -80,7 +82,7 @@ export async function getAllPoems(): Promise<Poem[]> {
 }
 
 export async function createPoem(poem: Poem): Promise<Poem | undefined> {
-  const id = v4.generate();
+  const id = usid.uuid(10);
   await client.connect();
   try {
     const query = "INSERT into poems (id, author, title, content, published) " +
