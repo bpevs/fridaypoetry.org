@@ -7,12 +7,13 @@ import { Poem } from "../types.ts";
 import About from "../routes/about.tsx";
 import Read from "../routes/read.tsx";
 import Write from "../routes/write.tsx";
-import { AppProps }, App from "./app.tsx"
+import App, { AppProps } from "./app.tsx";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
+export const wrap = (content: string) => `<!DOCTYPE html>${content}`;
 
-export default function Html(props: { route: string; poems?: Poem[] }) {
+export default function Html(props: { route: string; poem?: Poem }) {
   return (
     <html lang="en">
       <head>

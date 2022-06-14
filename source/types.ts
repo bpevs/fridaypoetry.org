@@ -1,13 +1,11 @@
 export interface Poem {
-  id: string;
-  text: string;
-  published: date;
+  id: string | null;
+  content: string;
+  published: number;
   author?: string;
   title?: string;
 
-  // IDs
+  // Surrouinding IDs
   next?: string;
   prev?: string;
 }
-
-export type DbResponse = any;

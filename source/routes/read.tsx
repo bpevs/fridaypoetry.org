@@ -3,34 +3,51 @@ import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
 import type { Poem } from "../types.ts";
 
-export default function Read({ poems }: { poems?: Poem[] }) {
-  const currPoem = poems?.[0];
+const DIRECTION = { PREV: "PREV", NEXT: "NEXT" };
+const { PREV, NEXT } = DIRECTION;
 
-  if (!currPoem) return <div className="no-content">No Content</div>;
+export default function Read({ poem }: { poem?: Poem }) {
+  if (!poem) return <div className="no-content">No Content</div>;
 
-  const { author, content, title } = currPoem;
+  const { author, content, title, next, prev, published } = poem;
+
+  // Get closest friday.
+  const date = new Date(published);
+  date.setDate(date.getDate() + 5 - date.getDay());
+
+  const publishedDate = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+  ].join(".");
 
   return (
-    <main style="margin: auto; max-width: 500px;">
+    <main className="poem">
       {title ? <h1>{title}</h1> : null}
 
-      <p style="white-space:pre-wrap;">{content}</p>
+      <p className="content">{content}</p>
 
-      {author ? <p className="author">- {author}</p> : null}
+      <p>
+        <em className="author">- {author || "Anonymous"}</em>
+        , {publishedDate}
+      </p>
 
-      <PageTurn direction="left" id={currPoem.prev} />
-      <PageTurn direction="right" id={currPoem.next} />
+      <p>
+        <PageTurn direction={PREV} id={prev} />
+        <PageTurn direction={NEXT} id={next} />
+      </p>
     </main>
   );
 }
 
-function PageTurn({ direction = "left", id }: {
+function PageTurn({ direction = PREV, id }: {
   direction: string;
-  id: string;
+  id?: string;
 }) {
+  const name = direction === PREV ? "previous" : "next";
   return (
-    <a href={`/poems/${id}`}>
-      <button disabled={!id}>turn page {direction}</button>
+    <a href={`/poems/${id}`} id={name}>
+      <button disabled={!id}>{name}</button>
     </a>
   );
 }

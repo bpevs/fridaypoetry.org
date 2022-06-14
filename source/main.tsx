@@ -4,8 +4,8 @@ import { App, contentType, get, post, redirect } from "dinatra";
 import { h } from "preact";
 import render from "preact-render-to-string";
 
-import { getPoem, getRecentPoems, postPoem } from "./database.ts";
-import Client, { wrap } from "./components/app.tsx";
+import { createPoem, getAllPoems, getPoem } from "./database.ts";
+import Client, { wrap } from "./components/html.tsx";
 import { ROUTE } from "./constants.ts";
 
 const { ABOUT, READ, WRITE } = ROUTE;
@@ -16,9 +16,8 @@ app.register(
   get(
     "/",
     async () => {
-      const recentPoems = await getRecentPoems();
-      const poemId = recentPoems[0].id;
-      return redirect(`/poems/${poemId}`, 302);
+      const { id } = (await getPoem()) || {}; // latest poem
+      return id ? redirect(`/poems/${id}`, 302) : 404;
     },
   ),
   get("/about", () => wrap(render(<Client route={ABOUT} />))),
@@ -26,12 +25,12 @@ app.register(
   get(
     "/poems/:id",
     async ({ params }) =>
-      wrap(render(<Client route={READ} poems={[await getPoem(params.id)]} />)),
+      wrap(render(<Client route={READ} poem={await getPoem(params.id)} />)),
   ),
   get("/api/poems", async () => [
     200,
     contentType("json"),
-    JSON.stringify({ poems: await getRecentPoems() }),
+    JSON.stringify(await getAllPoems()),
   ]),
   get("/api/poems/:id", async ({ params }) => [
     200,
@@ -39,7 +38,13 @@ app.register(
     JSON.stringify(await getPoem(params.id)),
   ]),
   post("/api/poems", async ({ params }) => {
-    await postPoem(params);
+    await createPoem({
+      id: null,
+      content: params.content,
+      published: params.published,
+      author: params.author,
+      title: params.title,
+    });
     return redirect("/", 302);
   }),
   get("/error", () => [500, "an error has occured"]),

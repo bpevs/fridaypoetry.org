@@ -13,7 +13,7 @@
   },
   "importMap": "import_map.json",
   "tasks": {
-    "serve": "deno run --no-check --allow-net --allow-read --allow-env source/main.tsx",
-    "watch": "deno run --no-check --allow-net --allow-read --allow-env --watch source/main.tsx"
+    "serve": "deno run --no-check --allow-net --allow-read --allow-env --watch source/main.tsx",
+    "test": "deno fmt && deno lint && deno check source/main.tsx && deno test"
   }
 }

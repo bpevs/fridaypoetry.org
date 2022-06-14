@@ -4,6 +4,18 @@ export const ROUTE = {
   WRITE: "WRITE",
 };
 
-export default function isFriday(): boolean {
-  return new Date().getDay() === 5;
+const EARLIEST_FRIDAY_UTC_OFFSET = 14;
+const LATEST_FRIDAY_UTC_OFFSET = -12;
+
+export function isFridaySomewhere(): boolean {
+  return Boolean(
+    Deno?.args?.includes("--force-friday") ||
+      isFriday(EARLIEST_FRIDAY_UTC_OFFSET) ||
+      isFriday(LATEST_FRIDAY_UTC_OFFSET),
+  );
+}
+
+function isFriday(offset: number) {
+  const date = new Date(new Date().getTime() + offset * 3600 * 1000);
+  return date.getDay() === 5;
 }
