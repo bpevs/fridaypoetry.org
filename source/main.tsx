@@ -1,5 +1,4 @@
 /* @jsx h */
-
 import { Application, Router } from "oak";
 import { h } from "preact";
 import render from "preact-render-to-string";
@@ -7,17 +6,23 @@ import render from "preact-render-to-string";
 import { createPoem, getAllPoems, getPoem } from "./database.ts";
 import Client, { wrap } from "./components/html.tsx";
 import { ROUTE } from "./constants.ts";
+import type { Poem } from "./types.ts";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 
 const pages = new Router()
   .get("/", async (ctx) => {
-    const { id } = (await getPoem()) || {}; // latest poem
-    if (id) {
-      ctx.response.status = 302;
-      ctx.response.redirect(`/poems/${id}`);
-    } else {
-      ctx.response.status = 404;
+    try {
+      const { id } = (await getPoem()) || {}; // latest poem
+      if (id) {
+        ctx.response.status = 302;
+        ctx.response.redirect(`/poems/${id}`);
+      } else {
+        ctx.response.status = 403;
+        ctx.response.body = wrap(render(<Client route={WRITE} />));
+      }
+    } catch (e) {
+      console.error(e);
     }
   })
   .get("/poems/:id", async (ctx) => {
@@ -34,9 +39,14 @@ const pages = new Router()
   });
 
 const poems = new Router()
+  // For Export; no expectation of performance
   .get("/api/poems", async (ctx) => {
     ctx.response.type = "application/json";
-    ctx.response.body = JSON.stringify(await getAllPoems());
+    const poems: { [key: string]: Poem } = {};
+    for await (const entry of getAllPoems()) {
+      poems[String(entry.key)] = entry.value;
+    }
+    ctx.response.body = JSON.stringify(poems);
   })
   .get("/api/poems/:id", async (ctx) => {
     ctx.response.type = "application/json";

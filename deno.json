@@ -6,14 +6,12 @@
     "jsxFragmentFactory": "Fragment",
   },
   "fmt": {
-    "files": {
-      "include": ["source/"],
-      "exclude": ["source/public/"],
-    }
+    "include": ["source/"],
+    "exclude": ["source/public/"],
   },
   "importMap": "import_map.json",
   "tasks": {
-    "serve": "deno run --no-check --allow-net --allow-read --allow-env --watch source/main.tsx",
-    "test": "deno fmt && deno lint && deno check source/main.tsx && deno test"
+    "serve": "deno run -A --unstable --watch source/main.tsx",
+    "test": "deno fmt && deno lint --unstable && deno check --unstable source/main.tsx && deno test --unstable"
   }
 }

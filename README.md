@@ -13,11 +13,6 @@ it into a website. Here it is!
 
 # Usage
 
-To run an instance of the FridayPoetry site, you need to have deno and postgres.
-
-1. Copy .env.example -> .env
-2. Update with Postgres DB info
-
 | Command | Description |
 | --- | --- |
 | `deno task serve` | Serve Website |
