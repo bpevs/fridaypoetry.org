@@ -6,7 +6,7 @@ export default () => (
     <h1>Friday Poetry</h1>
 
     <p>
-      FridayPoetry.org is a website that lets you post your poetry on Fridays.
+      Writing poetry. On Fridays. 📃✍️
     </p>
 
     <p className="about-text">

@@ -142,6 +142,15 @@ label {
   margin-right:  1em;
 }
 
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-item {
+  padding: 10px 0 10px 0;
+}
+
 input {
   background-color: rgba(256, 256, 256, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.2);
