@@ -16,7 +16,9 @@ export default function Write() {
   return (
     <div>
       <Only if={!isFridaySomewhere()}>
-        <h3 style={{ textAlign: "center" }}>Poem writing is only enabled on Fridays!</h3>
+        <h3 style={{ textAlign: "center" }}>
+          Poem writing is only enabled on Fridays!
+        </h3>
       </Only>
       <form
         action="/api/poems"
@@ -28,16 +30,26 @@ export default function Write() {
           `return confirm('${confirmMessage}');` as any
         }
       >
-      <div class="input-group">
-        <div class="input-item">
+        <div class="input-group">
+          <div class="input-item">
             <label for="title">Title</label>
-            <input name="title" type="text" placeholder={samplePoem.title} disabled={!isFridaySomewhere()} />
+            <input
+              name="title"
+              type="text"
+              placeholder={samplePoem.title}
+              disabled={!isFridaySomewhere()}
+            />
           </div>
-        <div class="input-item">
-          <label for="author">Author</label>
-          <input name="author" type="text" placeholder={samplePoem.author} disabled={!isFridaySomewhere()} />
+          <div class="input-item">
+            <label for="author">Author</label>
+            <input
+              name="author"
+              type="text"
+              placeholder={samplePoem.author}
+              disabled={!isFridaySomewhere()}
+            />
+          </div>
         </div>
-      </div>
         <fieldset>
           <legend>Poem</legend>
           <textarea
@@ -49,7 +61,12 @@ export default function Write() {
           />
         </fieldset>
 
-        <input class="submit" type="submit" value="Submit" />
+        <input
+          class="submit"
+          type="submit"
+          value="Submit"
+          disabled={!isFridaySomewhere()}
+        />
       </form>
     </div>
   );

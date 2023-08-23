@@ -193,6 +193,11 @@ textarea[type=text]:focus {
   outline: none;
 }
 
+textarea:disabled {
+  color: gray;
+  cursor: not-allowed;
+}
+
 input[type=submit] {
   background-color: transparent;
   color: black;
@@ -205,4 +210,9 @@ input[type=submit] {
   margin-top: 4em;
   font-family: "Consolas", "Monaco", "Menlo", monospace;
   text-transform: lowercase;
+}
+
+input:disabled {
+  color: gray;
+  cursor: not-allowed;
 }
