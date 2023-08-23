@@ -51,8 +51,14 @@ nav a.active {
 }
 
 nav .friday-message {
-  color: green;
-  vertical-align: super;
+  color: black;
+  margin: 0;
+}
+
+nav .friday-button {
+  color: black;
+  font-size: 1em;
+  text-decoration: underline;
 }
 
 /* Read Page */

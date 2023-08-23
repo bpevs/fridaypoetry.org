@@ -3,12 +3,14 @@ import { h } from "preact";
 import { useCallback, useState } from "preact/hooks";
 import { Poem } from "../types.ts";
 import { isFridaySomewhere } from "../constants.ts";
+import { poems } from "../sample_poems.ts";
 
 const confirmMessage = `\
 Submit your poem?\\n\
 You cannot delete a poem once submitted.`;
 
 export default function Write() {
+  const samplePoem = poems[Math.floor(Math.random() * poems.length)];
   if (!isFridaySomewhere()) {
     return <p>Poem writing is only enabled on Fridays.</p>;
   }
@@ -25,17 +27,22 @@ export default function Write() {
       }
     >
       <label for="title">Title</label>
-      <input name="title" type="text" />
+      <input name="title" type="text" placeholder={samplePoem.title} />
 
       <label for="author">Author</label>
-      <input name="author" type="text" />
+      <input name="author" type="text" placeholder={samplePoem.author} />
 
       <fieldset>
         <legend>Poem</legend>
-        <textarea required type="text" name="content" />
+        <textarea
+          required
+          type="text"
+          name="content"
+          placeholder={samplePoem.content}
+        />
       </fieldset>
 
-      <input className="submit" type="submit" value="Submit" />
+      <input class="submit" type="submit" value="Submit" />
     </form>
   );
 }

@@ -26,6 +26,17 @@ export default function Html(props: { route: string; poem?: Poem }) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
+        <meta property="og:url" content="http://fridaypoetry.org" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Friday Poetry" />
+        <meta
+          property="og:description"
+          content="For writing poetry. On Friday. 📃✍️"
+        />
+        <meta
+          property="og:image"
+          content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
+        />
         <link rel="manifest" href="/manifest.json" />
         <link rel="stylesheet" type="text/css" href="/index.css" />
         <link rel="shortcut icon" href="/assets/favicon.ico" />

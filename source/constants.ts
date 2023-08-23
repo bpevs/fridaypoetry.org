@@ -1,3 +1,5 @@
+import "$std/dotenv/load.ts";
+
 export const ROUTE = {
   ABOUT: "ABOUT",
   READ: "READ",
@@ -10,6 +12,7 @@ const LATEST_FRIDAY_UTC_OFFSET = -12;
 export function isFridaySomewhere(): boolean {
   return Boolean(
     Deno?.args?.includes("--force-friday") ||
+      Deno.env.get("ALWAYS_FRIDAY") === "true" ||
       isFriday(EARLIEST_FRIDAY_UTC_OFFSET) ||
       isFriday(LATEST_FRIDAY_UTC_OFFSET),
   );

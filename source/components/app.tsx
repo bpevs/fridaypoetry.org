@@ -37,9 +37,9 @@ export default function App({ route, poem }: AppProps) {
     <Fragment>
       <nav>
         <Only if={isFridaySomewhere() && route !== WRITE}>
-          <div className="friday-message">
-            It's Friday! <a href="/new">Write a Poem!</a>
-          </div>
+          <h1 class="friday-message">
+            It's Friday! <a href="/new" class="friday-button">Write a Poem!</a>
+          </h1>
         </Only>
         <Only if={route !== READ}>
           <a href="javascript:history.back()">Back</a>
