@@ -34,8 +34,8 @@ export default function Html(props: { route: string; poem?: Poem }) {
           content="For writing poetry. On Friday. 📃✍️"
         />
         <meta property="og:image" content="/assets/og_image.png" />
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="350">
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="350" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="stylesheet" type="text/css" href="/index.css" />
         <link rel="shortcut icon" href="/assets/favicon.ico" />
