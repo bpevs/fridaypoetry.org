@@ -33,10 +33,7 @@ export default function Html(props: { route: string; poem?: Poem }) {
           property="og:description"
           content="For writing poetry. On Friday. 📃✍️"
         />
-        <meta
-          property="og:image"
-          content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
-        />
+        <meta property="og:image" content="/assets/og_image.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="stylesheet" type="text/css" href="/index.css" />
         <link rel="shortcut icon" href="/assets/favicon.ico" />
