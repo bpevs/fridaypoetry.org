@@ -57,3 +57,7 @@ export function createPoem(poem: Poem): Promise<Deno.KvCommitResult> {
 
   return kv.set(["poems", id], data);
 }
+
+export async function deletePoem(id: string) {
+  return await kv.delete(["poems", id]);
+}

@@ -3,7 +3,7 @@ import { Application, Router } from "oak";
 import { h } from "preact";
 import render from "preact-render-to-string";
 
-import { createPoem, getAllPoems, getPoem } from "./database.ts";
+import { createPoem, deletePoem, getAllPoems, getPoem } from "./database.ts";
 import Client, { wrap } from "./components/html.tsx";
 import { ROUTE } from "./constants.ts";
 import type { Poem } from "./types.ts";
@@ -51,6 +51,15 @@ const poems = new Router()
   .get("/api/poems/:id", async (ctx) => {
     ctx.response.type = "application/json";
     ctx.response.body = JSON.stringify(await getPoem(ctx?.params?.id));
+  })
+  .get("/api/poems/:id/delete/:key", async (ctx) => {
+    if (
+      Deno.env.get("DELETE_KEY") &&
+      Deno.env.get("DELETE_KEY") === ctx?.params?.key
+    ) {
+      await deletePoem(ctx?.params?.id);
+      ctx.response.status = 200;
+    }
   })
   .post("/api/poems", async (ctx) => {
     const body = await (ctx.request.body({ type: "form" })).value;
