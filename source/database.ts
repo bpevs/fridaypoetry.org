@@ -46,7 +46,7 @@ export function getAllPoems(): Deno.KvListIterator<Poem> {
 }
 
 export function createPoem(poem: Poem): Promise<Deno.KvCommitResult> {
-  const id = usid.uuid(10);
+  const id = new Date().getTime() + "-" + usid.uuid(10);
   const data = {
     id,
     author: poem.author || "",
