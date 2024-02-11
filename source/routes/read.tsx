@@ -1,6 +1,6 @@
-/* @jsx h */
-import { h } from "preact";
-import { useCallback, useState } from "preact/hooks";
+/** @jsx jsx **/
+/** @jsxFrag Fragment **/
+import { html, jsx } from "hono/middleware.ts";
 import type { Poem } from "../types.ts";
 
 const DIRECTION = { PREV: "PREV", NEXT: "NEXT" };

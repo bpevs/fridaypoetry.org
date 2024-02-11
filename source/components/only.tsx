@@ -1,5 +1,5 @@
-/* @jsx h */
-import { h, VNode } from "preact";
+/** @jsx jsx **/
+import { jsx } from "hono/middleware.ts";
 
 export interface OnlyProps {
   if: boolean;

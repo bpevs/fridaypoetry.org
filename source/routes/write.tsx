@@ -1,6 +1,5 @@
-/* @jsx h */
-import { h } from "preact";
-import { useCallback, useState } from "preact/hooks";
+/** @jsx jsx **/
+import { jsx } from "hono/middleware.ts";
 import { Poem } from "../types.ts";
 import { isFridaySomewhere } from "../constants.ts";
 import Only from "../components/only.tsx";

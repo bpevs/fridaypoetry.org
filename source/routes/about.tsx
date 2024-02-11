@@ -1,15 +1,12 @@
-/* @jsx h */
-import { h, render } from "preact";
+/** @jsx jsx **/
+import { jsx } from "hono/middleware.ts";
 
 export default () => (
-  <main className="about">
+  <main class="about">
     <h1>Friday Poetry</h1>
+    <p>Writing poetry. On Fridays. 📃✍️</p>
 
-    <p>
-      Writing poetry. On Fridays. 📃✍️
-    </p>
-
-    <p className="about-text">
+    <p class="about-text">
       The tradition of Friday Poetry was started by Dan in the MakerSquare
       alumni Slack Channel (MakerSquare was a immersive programming course that
       no longer exists). Every week, people were encouraged to extend their
@@ -19,12 +16,12 @@ export default () => (
     </p>
     <p>
       <img
-        className="about-image"
+        class="about-image"
         alt="wordsmith"
         src="/assets/about-wordsmith.jpg"
       />
       <img
-        className="about-image"
+        class="about-image"
         alt="the first professional poem"
         src="/assets/about-poem.jpg"
       />

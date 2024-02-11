@@ -1,5 +1,7 @@
-/* @jsx h */
-import { Fragment, h } from "preact";
+/** @jsx jsx **/
+/** @jsxFrag Fragment **/
+import { Fragment, jsx } from "hono/middleware.ts";
+import { html } from "hono/helper.ts";
 
 import { isFridaySomewhere, ROUTE } from "../constants.ts";
 import About from "../routes/about.tsx";
@@ -15,22 +17,6 @@ export interface AppProps {
   route: string;
   poem?: Poem;
 }
-
-const pageTurnScript = `
-  document.addEventListener('keydown', (e) => {
-    switch (e.which) {
-      case 37: // left
-        const previous = document.getElementById("previous").href;
-        if (!/null$/.test(previous)) window.location.href = previous;
-        break;
-
-      case 39: // right
-        const next = document.getElementById("next").href;
-        if (!/null$/.test(next)) window.location.href = next;
-        break;
-    }
-  });
-`;
 
 export default function App({ route, poem }: AppProps) {
   return (
@@ -60,10 +46,23 @@ export default function App({ route, poem }: AppProps) {
         </Only>
       </footer>
       <Only if={route === READ}>
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: pageTurnScript }}
-        />
+        {html`
+          <script type="text/javascript">
+            document.addEventListener('keydown', (e) => {
+              switch (e.which) {
+                case 37: // left
+                  const previous = document.getElementById("previous").href;
+                  if (!/null$/.test(previous)) window.location.href = previous;
+                  break;
+
+                case 39: // right
+                  const next = document.getElementById("next").href;
+                  if (!/null$/.test(next)) window.location.href = next;
+                  break;
+              }
+            });
+          </script>
+        `}
       </Only>
     </Fragment>
   );

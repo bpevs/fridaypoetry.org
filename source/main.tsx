@@ -1,23 +1,23 @@
-/* @jsx h */
+/** @jsx jsx **/
 import { Hono } from "hono";
-import { serveStatic } from "hono/middleware.ts";
-import { h } from "preact";
-import render from "preact-render-to-string";
+import { jsx, logger, poweredBy, serveStatic } from "hono/middleware.ts";
 
 import { createPoem, deletePoem, getAllPoems, getPoem } from "./database.ts";
-import Client, { wrap } from "./components/html.tsx";
+import Client from "./components/html.tsx";
 import { ROUTE } from "./constants.ts";
 import type { Poem } from "./types.ts";
 
 const { ABOUT, READ, WRITE } = ROUTE;
 const app = new Hono();
 
+app.use("*", logger(), poweredBy());
+
 app.get("/", async (c) => {
   try {
     const { id } = (await getPoem()) || {}; // latest poem
     return id
       ? c.redirect(`/poems/${id}`, 302)
-      : c.html(wrap(render(<Client route={WRITE} />)), 302);
+      : c.html(<Client route={WRITE} />, 302);
   } catch (e) {
     console.error(e);
   }
@@ -25,15 +25,13 @@ app.get("/", async (c) => {
 
 app.get(
   "/poems/:id",
-  async (c) =>
-    c.html(
-      wrap(
-        render(<Client route={READ} poem={await getPoem(c.req.param("id"))} />),
-      ),
-    ),
+  async (c) => {
+    const poem = await getPoem(c.req.param("id"));
+    return c.html(<Client route={READ} poem={poem} />);
+  },
 );
-app.get("/about", (c) => c.html(wrap(render(<Client route={ABOUT} />))));
-app.get("/new", (c) => c.html(wrap(render(<Client route={WRITE} />))));
+app.get("/about", (c) => c.html(<Client route={ABOUT} />));
+app.get("/new", (c) => c.html(<Client route={WRITE} />));
 
 app.get("/api/poems", async (c) => {
   const poems: { [key: string]: Poem } = {};
