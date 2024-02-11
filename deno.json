@@ -11,7 +11,7 @@
   },
   "importMap": "import_map.json",
   "tasks": {
-    "serve": "deno run -A --unstable --watch source/main.tsx",
-    "test": "deno fmt && deno lint --unstable && deno check --unstable source/main.tsx && deno test --unstable"
+    "dev": "deno run -A --unstable-kv --watch source/main.tsx",
+    "test": "deno fmt && deno lint --unstable-kv && deno check --unstable-kv source/main.tsx && deno test --unstable-kv"
   }
 }
