@@ -216,3 +216,7 @@ input:disabled {
   color: gray;
   cursor: not-allowed;
 }
+
+.only-friday {
+  text-align: center;
+}

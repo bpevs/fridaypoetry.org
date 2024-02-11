@@ -1,6 +1,6 @@
 /** @jsx jsx **/
 /** @jsxFrag Fragment **/
-import { html, jsx } from "hono/middleware.ts";
+import { jsx } from "hono/middleware.ts";
 import type { Poem } from "../types.ts";
 
 const DIRECTION = { PREV: "PREV", NEXT: "NEXT" };

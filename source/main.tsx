@@ -72,6 +72,6 @@ app.post("/api/poems", async (c) => {
 
 app.get("/index.css", serveStatic({ path: "./public/index.css" }));
 app.get("/manifest.json", serveStatic({ path: "./public/manifest.json" }));
-app.get("/assets/*", serveStatic({ path: "./public/assets" }));
+app.use("/assets/*", serveStatic({ root: "./public/" }));
 
 Deno.serve(app.fetch);

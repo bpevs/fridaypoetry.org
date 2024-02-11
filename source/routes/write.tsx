@@ -2,7 +2,6 @@
 import { jsx } from "hono/middleware.ts";
 import { Poem } from "../types.ts";
 import { isFridaySomewhere } from "../constants.ts";
-import Only from "../components/only.tsx";
 import { poems } from "../sample_poems.ts";
 
 const confirmMessage = `\
@@ -14,11 +13,9 @@ export default function Write() {
 
   return (
     <div>
-      <Only if={!isFridaySomewhere()}>
-        <h3 style={{ textAlign: "center" }}>
-          Poem writing is only enabled on Fridays!
-        </h3>
-      </Only>
+      {!isFridaySomewhere()
+        ? <h3 class="only-friday">Poem writing is only enabled on Fridays!</h3>
+        : ""}
       <form
         action="/api/poems"
         method="post"

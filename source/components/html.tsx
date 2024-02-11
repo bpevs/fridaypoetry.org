@@ -1,4 +1,4 @@
-/** @jsx jsx **/
+/** @jsx jsx */
 import { jsx } from "hono/middleware.ts";
 import { html } from "hono/helper.ts";
 
